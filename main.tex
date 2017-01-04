@@ -1,5 +1,2998 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
+\documentclass[leqno,11pt]{amsart}
+
+%\documentclass{jams-l}
+
+\usepackage[letterpaper,margin=1in]{geometry}
+
+%\usepackage{times}
+
+%\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+%\usepackage{a4}
+\usepackage[all]{xy} % diagrams
+%\xyoption{all}
+\usepackage{amsmath, amssymb, amsfonts, latexsym, mdwlist, amsthm, amscd}
+\usepackage{subfig}
+\usepackage{graphicx}
+%\usepackage{floatflt}
+\usepackage{wrapfig}
+
+
+
+\usepackage[bookmarks, colorlinks, breaklinks, pdftitle={},
+pdfauthor={}]{hyperref}
+\hypersetup{linkcolor=blue,citecolor=blue,filecolor=black,urlcolor=blue}
+
+%\usepackage{cite}
+
+%Uncomment this for final versions:
+\usepackage{showkeys}
+
+%\sloppy
+
+%The following are tools for tikz:
+\usepackage{tikz}
+\usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,%
+    decorations.pathreplacing,decorations.pathmorphing,shapes,%
+    matrix,shapes.symbols}
+
+\tikzset{
+>=stealth',
+  punktchain/.style={
+    rectangle,
+    rounded corners,
+    % fill=black!10,
+    draw=black, thick,
+    %text width=4em,
+    minimum height=3em,
+    text centered,
+    on chain},
+  line/.style={draw, thick, <-},
+  element/.style={
+    tape,
+    top color=white,
+    bottom color=blue!50!black!60!,
+    minimum width=8em,
+    draw=blue!40!black!90, very thick,
+    text width=10em,
+    minimum height=3.5em,
+    text centered,
+    on chain},
+  every join/.style={->, thick,shorten >=1pt},
+  decoration={brace},
+  tuborg/.style={decorate},
+  tubnode/.style={midway, right=2pt},
+}
+
+
+%alphabetical enumerate
+\usepackage{paralist}
+\setdefaultenum{(a)}{(i)}{}{}
+\usepackage{enumitem} % for space-saving description environments}
+
+%%%%%%%%%%%%%%%%%%%% Some abbreviations %%%%%%%%%%%%%%
+\def\C{\ensuremath{\mathbb{C}}}
+\def\D{\ensuremath{\mathbb{D}}}
+\def\H{\ensuremath{\mathbb{H}}}
+%\def\L{\ensuremath{\mathbb{L}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\P{\ensuremath{\mathbb{P}}}
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\R{\ensuremath{\mathbb{R}}}
+\def\V{\ensuremath{\mathbb{V}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+
+\def\alg{\mathrm{alg}}
+\def\Amp{\mathrm{Amp}}
+\def\Aut{\mathop{\mathrm{Aut}}\nolimits}
+\def\lAut{\mathop{\mathcal Aut}\nolimits}
+\def\ch{\mathop{\mathrm{ch}}\nolimits}
+\def\Char{\mathop{\mathrm{char}}}
+\def\CH{\mathop{\mathrm{CH}}}
+\def\Coh{\mathop{\mathrm{Coh}}\nolimits}
+\def\codim{\mathop{\mathrm{codim}}\nolimits}
+\def\cone{\mathop{\mathrm{cone}}}
+\def\cok{\mathop{\mathrm{cok}}}
+\def\deg{\mathop{\mathrm{deg}}}
+\def\diag{\mathop{\mathrm{diag}}\nolimits}
+\def\dim{\mathop{\mathrm{dim}}\nolimits}
+\def\ev{\mathop{\mathrm{ev}}\nolimits}
+\def\inf{\mathop{\mathrm{inf}}\nolimits}
+\def\End{\mathop{\mathrm{End}}}
+\def\lEnd{\mathop{\mathcal End}}
+\def\Ext{\mathop{\mathrm{Ext}}\nolimits}
+\def\ext{\mathop{\mathrm{ext}}\nolimits}
+\def\lExt{\mathop{\mathcal Ext}\nolimits} % means local Ext
+\def\Fix{\mathop{\mathrm{Fix}(G)}}
+\def\FixG{\mathop{\mathrm{Fix}(G')}}
+\def\For{\mathop{\mathrm{Forg}_G}}
+\def\Func{\mathop{{\mathrm{Func}}}\nolimits}
+\def\GL{\mathop{\mathrm{GL}}}
+\def\Hal{H^*_{\alg}}
+\def\Hilb{\mathop{\mathrm{Hilb}}\nolimits}
+\def\HN{\mathop{\mathrm{HN}}\nolimits}
+\def\Hom{\mathop{\mathrm{Hom}}\nolimits}
+%\def\lHom{\mathop{\underline{\mathrm{Hom}}}\nolimits} % means local Hom
+\def\lHom{\mathop{\mathcal Hom}\nolimits}
+\def\RlHom{\mathop{\mathbf{R}\mathcal Hom}\nolimits}
+\def\RHom{\mathop{\mathbf{R}\mathrm{Hom}}\nolimits}
+\def\id{\mathop{\mathrm{id}}\nolimits}
+\def\Id{\mathop{\mathrm{Id}}\nolimits}
+\def\im{\mathop{\mathrm{im}}\nolimits}
+\def\coker{\mathop{\mathrm{coker}}\nolimits}
+\def\Imm{\mathop{\mathrm{Im}}\nolimits}
+\def\Inf{\mathop{\mathrm{Inf}_G}}
+\def\Isom{\mathop{\mathrm{Isom}}\nolimits}
+\def\Jac{\mathop{\mathrm{Jac}}\nolimits}
+\def\JH{\mathop{\mathrm{JH}}\nolimits}
+\def\Ker{\mathop{\mathrm{Ker}}\nolimits}
+\def\Lag{\mathop{\mathrm{Lag}}\nolimits}
+\def\lcm{\mathop{\mathrm{lcm}}\nolimits}
+\def\Lie{\mathop{\mathrm{Lie}}\nolimits}
+\def\Mor{\mathop{\mathrm{Mor}}\nolimits}
+\def\mod{\mathop{\mathrm{mod}}\nolimits}
+\def\min{\mathop{\mathrm{min}}\nolimits}
+\def\mult{\mathop{\mathrm{mult}}\nolimits}
+\def\Nef{\mathrm{Nef}}
+\def\num{\mathop{\mathrm{num}}\nolimits}
+\def\Num{\mathop{\mathrm{Num}}\nolimits}
+\def\NS{\mathop{\mathrm{NS}}\nolimits}
+\def\ord{\mathop{\mathrm{ord}}\nolimits}
+\def\Ob{\mathop{\mathrm{Ob}}}
+\def\perf{\mathop{\mathrm{perf}}}
+\def\Pic{\mathop{\mathrm{Pic}}\nolimits}
+\def\PGL{\mathop{\mathrm{PGL}}}
+\def\Proj{\mathop{\mathrm{Proj}}}
+\def\Quot{\mathop{\mathrm{Quot}}\nolimits}
+\def\rk{\mathop{\mathrm{rk}}}
+\def\Sch{\mathop{\mathrm{Sch}}\nolimits}
+\def\Sing{\mathop{\mathrm{Sing}}}
+\def\Spec{\mathop{\mathrm{Spec}}}
+\def\lSpec{\mathop{\mathcal Spec}\nolimits}
+\def\SL{\mathop{\mathrm{SL}}\nolimits}
+\def\SSL{\mathop{\mathrm{SSL}}}
+\def\ST{\mathop{\mathrm{ST}}\nolimits}
+\def\stab{\mathop{\mathrm{stab}}}
+\def\supp{\mathop{\mathrm{supp}}}
+\def\Sym{\mathop{\mathrm{Sym}}\nolimits}
+\def\Tor{\mathop{\mathrm{Tor}}\nolimits}
+\def\Tr{\mathop{\mathrm{Tr}}\nolimits}
+\def\td{\mathop{\mathrm{td}}\nolimits}
+\def\Real{\mathop{\mathrm{Re}}\nolimits}
+\def\Res{\mathop{\mathrm{Res}}\nolimits}
+\def\top{\mathop{\mathrm{top}}\nolimits}
+\def\Tot{\mathop{\mathrm{Tot}}\nolimits}
+\def\virt{\mathrm{virt}}
+\def\v{\mathop{\pi^*v}\nolimits}
+
+\def\o{\mathop{\ord(\omega_S)}\nolimits}
+\def\DT{\mathop{\mathrm{DT}}}
+\def\PT{\mathop{\mathrm{PT}}}
+
+\newenvironment{Prf}{\textit{Proof.}\/}{\hfill$\Box$}
+
+
+\def\MG13{\ensuremath{{\mathcal M}_{\Gamma_1(3)}}}
+\def\tildeMG13{\ensuremath{\widetilde{\mathcal M}_{\Gamma_1(3)}}}
+\def\Stab{\mathop{\mathrm{Stab}}}
+\def\Stabd{\mathop{\Stab^{\dagger}}}
+\def\into{\ensuremath{\hookrightarrow}}
+\def\onto{\ensuremath{\twoheadrightarrow}}
+
+\def\blank{\underline{\hphantom{A}}}
+
+%%%%%Macro-added%%%%%%%%%%%
+
+\def\Db{\mathrm{D}^{\mathrm{b}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\def\pt{[\mathrm{pt}]}
+\def\Pz{\P^2}
+
+\def\shiftto{\to^{[1]}}
+
+
+%\newcommand\TFILTB[3]{%
+%  #1  an object to filtrate
+%  #2  quotients
+%  #3  end of the filtration
+%  Example \TFILTB E A n
+%\xymatrix@=1pc{
+%{0 = {#1}_0} \ar[rr]&&
+%{{#1}_1} \ar[rr]\ar[ld] &&
+%{{#1}_2} \ar[r]\ar[ld] &
+%{\cdots} \ar[r] & { {#1}_{#3-1}} \ar[rr] &&
+%{{#1}_{#3} = {#1}} \ar[ld]
+%\\
+%& *{{#2}_1} \ar@{.>}[ul] &&
+%{{#2}_2} \ar@{.>}[ul] & &&&
+%{{#2}_{{#3}}} \ar@{.>}[ul]
+%}}
+
+
+%\newcommand{\com}{{\scriptscriptstyle\bullet}}
+
+
+
+\def\abs#1{\left\lvert#1\right\rvert}
+
+\newcommand\stv[2]{\left\{#1\,\colon\,#2\right\}}
+
+% Allows for repeating a theorem number:
+\makeatletter
+\newtheorem*{rep@theorem}{\rep@title}
+\newcommand{\newreptheorem}[2]{%
+\newenvironment{rep#1}[1]{%
+ \def\rep@title{#2 \ref{##1}}%
+ \begin{rep@theorem}}%
+ {\end{rep@theorem}}}
+\makeatother
+
+
+%\swapnumbers
+\newtheorem{Thm}{Theorem}[section]
+\newreptheorem{Thm}{Theorem}
+%\newtheorem{Thm-s}[Thm]{Theorem}
+%\newtheorem{Prop-s}[Thm]{Proposition}
+%\newtheorem{Lem-s}[Thm]{Lemma}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{PropDef}[Thm]{Proposition and Definition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{PosLem}[Thm]{Positivity Lemma}
+\newtheorem{Cor}[Thm]{Corollary}
+\newreptheorem{Cor}{Corollary}
+\newtheorem{Con}[Thm]{Conjecture}
+\newreptheorem{Con}{Conjecture}
+\newtheorem{Ques}[Thm]{Question}
+\newtheorem{Obs}[Thm]{Observation}
+\newtheorem{Ass}[Thm]{Assumption}
+\newtheorem{Note}[Thm]{Note}
+
+\newtheorem{thm-int}{Theorem}
+
+\theoremstyle{definition}
+\newtheorem{Def-s}[Thm]{Definition}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Rem}[Thm]{Remark}
+\newtheorem{DefRem}[Thm]{Definition and Remark}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Ex}[Thm]{Example}
+
+
+\def\C{\ensuremath{\mathbb{C}}}
+\def\D{\ensuremath{\mathbb{D}}}
+\def\G{\ensuremath{\mathbb{G}}}
+\def\H{\ensuremath{\mathbb{H}}}
+\def\N{\ensuremath{\mathbb{N}}}
+\def\P{\ensuremath{\mathbb{P}}}
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\R{\ensuremath{\mathbb{R}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+
+\def\AA{\ensuremath{\mathcal A}}
+\def\BB{\ensuremath{\mathcal B}}
+\def\CC{\ensuremath{\mathcal C}}
+\def\DD{\ensuremath{\mathcal D}}
+\def\EE{\ensuremath{\mathcal E}}
+\def\FF{\ensuremath{\mathcal F}}
+\def\GG{\ensuremath{\mathcal G}}
+\def\HH{\ensuremath{\mathcal H}}
+\def\II{\ensuremath{\mathcal I}}
+\def\JJ{\ensuremath{\mathcal J}}
+\def\KK{\ensuremath{\mathcal K}}
+\def\LL{\ensuremath{\mathcal L}}
+\def\MM{\ensuremath{\mathcal M}}
+\def\NN{\ensuremath{\mathcal N}}
+\def\OO{\ensuremath{\mathcal O}}
+\def\PP{\ensuremath{\mathcal P}}
+\def\RR{\ensuremath{\mathcal R}}
+\def\SS{\ensuremath{\mathcal S}}
+\def\QQ{\ensuremath{\mathcal Q}}
+\def\TT{\ensuremath{\mathcal T}}
+\def\VV{\ensuremath{\mathcal V}}
+\def\WW{\ensuremath{\mathcal W}}
+\def\XX{\ensuremath{\mathcal X}}
+\def\YY{\ensuremath{\mathcal Y}}
+\def\ZZ{\ensuremath{\mathcal Z}}
+
+\newcommand{\mor}[1][]{\xrightarrow{#1}}
+\newcommand{\isomor}{\mor[\sim]}
+
+\def\Y{\ensuremath{\tilde{Y}}}
+
+
+\def\OPP{\ensuremath{\widehat{\mathcal P}}}
+
+\def\cht{\ensuremath{\widetilde{\ch}}}
+
+\def\AAA{\mathfrak A}
+\def\CCC{\mathfrak C}
+\def\DDD{\mathfrak D}
+\def\EEE{\mathfrak E}
+\def\FFF{\mathfrak F}
+\def\GGG{\mathfrak G}
+\def\LLL{\mathfrak L}
+\def\MMM{\mathfrak M}
+\def\NNN{\mathfrak N}
+\def\RRR{\mathfrak R}
+\def\SSS{\mathfrak S}
+\def\VVV{\mathfrak V}
+
+
+\def\XG{\ensuremath{[X/G]}}
+\def\MX{\ensuremath{\mathfrak M_{\sigma',X}(\v)}}
+\def\MXs{\ensuremath{\mathfrak M^s_{\sigma',X}(\v)}}
+\def\mX{\ensuremath{M_{\sigma',X}(\v)}}
+\def\mXs{\ensuremath{M^s_{\sigma',X}(\v)}}
+
+\def\MXG{\ensuremath{\mathfrak M_{\sigma,\XG}(v)}}
+\def\MXGs{\ensuremath{\mathfrak M^s_{\sigma,\XG}(v)}}
+\def\mXG{\ensuremath{M_{\sigma,\XG}(v)}}
+\def\mXGs{\ensuremath{M^s_{\sigma,\XG}(v)}}
+\def\mXGss{\ensuremath{M^{ss}_{\sigma,\XG}(v)}}
+
+\def\MS{\ensuremath{\mathfrak M_{\sigma,S}(v)}}
+\def\MSs{\ensuremath{\mathfrak M^s_{\sigma,S}(v)}}
+\def\mS{\ensuremath{M_{\sigma,S}(v)}}
+\def\mSs{\ensuremath{M^s_{\sigma,S}(v)}}
+\def\mSss{\ensuremath{M^{ss}_{\sigma,S}(v)}}
+
+
+
+\def\MY{\ensuremath{\mathfrak M_{\sigma,\XG}(v)}}
+\def\MYs{\ensuremath{\mathfrak M^s_{\sigma,\XG}(v)}}
+\def\mY{\ensuremath{M_{\sigma,\XG}(v)}}
+\def\mYs{\ensuremath{M^s_{\sigma,\XG}(v)}}
+\def\mYss{\ensuremath{M^{ss}_{\sigma,\XG}(v)}}
+
+
+\def\cal{\mathcal}
+\def\Bbb{\mathbb}
+\def\frak{\mathfrak}
+
+\def\simpos{\sim_{\R^+}}
+
+
+%This command creates a box marked ``To Do'' around text.
+%To use type \todo{  insert text here  }.
+
+\newcommand{\info}[1]{\vspace{5 mm}\par \noindent
+\marginpar{\textsc{Info}}
+\framebox{\begin{minipage}[c]{0.95 \textwidth}
+\tt #1 \end{minipage}}\vspace{5 mm}\par}
+
+\newcommand{\todo}[1]{\vspace{5 mm}\par \noindent
+\marginpar{\textsc{ToDo}}
+\framebox{\begin{minipage}[c]{0.95 \textwidth}
+\tt #1 \end{minipage}}\vspace{5 mm}\par}
+
+%\renewcommand{\info}[1]{}
+%\renewcommand{\todo}[1]{}
+
+\newcommand{\ignore}[1]{}
+
+
 \begin{document}
-(Type your content here.)
+\author{Howard Nuer}
+\author{K\={o}ta Yoshioka}
+\title{MMP via wall-crossing for moduli spaces of stables sheaves on an Enriques surface}
+\maketitle
+
+\section{Introduction}
+
+
+\section{Review:stability conditions on Enriques surfaces and moduli spaces}
+\begin{Thm}\label{Thm:generic moduli spaces} \todo{Insert Theorem on non-emptiness and dimension of generic moduli spaces}
+
+\end{Thm}
+
+
+\section{The hyperbolic lattice associated to a wall}
+\begin{Prop}\label{Prop:lattice classification}Let $\HH$ be the hyperbolic lattice associated to a wall $\WW$ and $\sigma_0$ a generic stability condition on the wall.  Then $\HH$ and $\sigma_0$ satisfy one of the following mutually exclusive conditions:
+\begin{enumerate}
+\item $\HH$ contains no spherical or exceptional classes.  
+\item \begin{enumerate}
+	\item $\HH$ contains precisely one spherical class, up to sign, and there exists a unique $\sigma_0$-stable spherical object $S$ with $v(S)\in\HH$.
+    \item $\HH$ contains precisely one exceptional class, up to sign, and there exists exactly two $\sigma_0$-stable exceptional objects $E,E(K_X)$ with $v(E)=v(E(K_X))\in\HH$.
+    \end{enumerate}
+\item There are infinitely many spherical or exceptional classes in $\HH$, and either 
+\begin{enumerate}
+\item there exist exactly two $\sigma_0$-stable spherical objects $S,T$ whose classes are in $\HH$; or
+\item there exist exactly four $\sigma_0$-stable exceptional objects $E_1,E_1(K_X),E_2,E_2(K_X)$ with $v(E_1)=v(E_1(K_X)),v(E_2)=v(E_2(K_X))\in\HH$; or
+\item there exists exactly one $\sigma_0$-stable spherical object $S$ and exactly two $\sigma_0$-stable exceptional objects $E,E(K_X)$ with $v(S),v(E)=v(E(K_X))\in\HH$.
+\end{enumerate}
+In case (c), $\HH$ is non-isotropic.
+\end{enumerate}
+\end{Prop}
+\begin{proof}
+Suppose that $\HH$ contains precisely one spherical (resp. exceptional) class $s$ (resp. $e$).  Then by Theorem \ref{Thm:generic moduli spaces}, there exists a unique $\sigma_+$-stable object $S$ with $v(S)=s$ (resp. precisely two $\sigma_+$-stable objects $E$ and $E(K_X)$ with $v(E)=v(E(K_X))=e$), which must then be spherical (resp. exceptional) by \cite[Lemma 4.3]{Yos16b}.  Suppose that $S$ (resp. $E$) is strictly $\sigma_0$-semistable.  Then by \cite[Lemma 4.6]{Yos16b} every $\sigma_0$-stable factor $F$ of $S$ (resp. $E\oplus E(K_X)$) must satisfy $\Ext^1(F,F)=0$.  But then $v(F)^2<0$, so by \cite[Lemma 4.3]{Yos16b} $v(F)^2=-1$ or $-2$, i.e. $v(F)$ is either spherical or exceptional.  But this is a contradiction to the assumption, so $S$ (resp. $E,E(K_X)$) is $\sigma_0$-stable, giving Case (b).
+
+It remains to consider Case (c).  It will suffice for our purposes to show that, up to twisting by $K_X$, there cannot be any combination of three stable spherical or exceptional objects $S_1,S_2,S_3$ in $\PP_0(1)$.  Since each $S_i$ is $\sigma_0$-stable of the same phase and distinct up to twisting by $K_X$, we must have $\Hom(S_i,S_j)=\Hom(S_j,S_i(K_X))=0$ for each $i\neq j$.  Thus if $s_i=v(S_i)$, then $\langle s_i,s_j\rangle=\ext^1(S_i,S_j)\geq 0$.
+
+Now any two of the $S_i$ must be linearly independent, and we may choose, say, $s_1$ and $s_2$ to represent either both spherical or both exceptional $\sigma_0$-stable objects.    Denote by $m:=\langle s_1,s_2\rangle\geq 0$.  Since $\HH$ has signature $(1,-1)$, $$\langle s_1,s_2\rangle^2> s_1^2s_2^2=\begin{cases}
+1, & \text{ if }s_1^2=s_2^2=-1,\\
+
+4, & \text{ if }s_1^2=s_2^2=-2.\\
+\end{cases}$$
+So $m\geq 2$ or $3$.  We write $s_3=xs_1+ys_2$, and from $\langle s_3,s_1\rangle,\langle s_3,s_2\rangle\geq 0$, we get that \begin{equation}\label{eq:positivity}\begin{cases}
+\frac{1}{m}x\leq y\leq mx, & \text{ if }s_1^2=s_2^2=-1,\\
+
+\frac{2}{m}x\leq y\leq \frac{m}{2}x, & \text{ if }s_1^2=s_2^2=-2.\\  
+\end{cases}\end{equation}  But solving the quadratic equation $$0=(xs_1+ys_2)^2$$ gives \begin{equation}\label{eq:isotropic solutions}\frac{y}{x}=\begin{cases}
+m\pm\sqrt{m^2-1}, & \text{ if }s_1^2=s_2^2=-1,\\
+
+\frac{m\pm\sqrt{m^2-4}}{2}, & \text{ if }s_1^2=s_2^2=-2,
+\end{cases}\end{equation} from which we see two things.  First, as $m\geq 2$ (resp. $m\geq 3$), the solution $\frac{y}{x}$ in \eqref{eq:isotropic solutions} is irrational so that in subcases (c)(i) and (c)(ii) there can be no isotropic classes, as these would give rational solutions in \eqref{eq:isotropic solutions}.  Second, as $$m-\sqrt{m^2-1}\leq\frac{1}{m}\leq m\leq m+\sqrt{m^2-1}$$ for $m\geq 2$ and $$\frac{m-\sqrt{m^2-4}}{2}\leq\frac{2}{m}\leq\frac{m}{2}\leq\frac{m+\sqrt{m^2-4}}{2}$$ for $m\geq 3$, we see that for $s_3$ satisfying \eqref{eq:positivity} we must have $s_3^2>0$, in contradiction to the fact that $s_3^2=-1$ or $-2$.  
+
+Thus we see that there can only be at most two $\sigma_0$-stable spherical or exceptional objects with Mukai classes in $\HH$.  Notice further that if $\HH$ admits any combination of two linearly independent spherical or exceptional classes, then the group generated by the associated spherical and $(-1)$ reflections is infinite, so the orbit of a spherical or exceptional class gives infinitely many of the same kind. 
+
+Finally, it only remains to show that in subcase (c)(iii) $\HH$ is non-isotropic.  Writing an integral isotropic class $xs+ye$ with $x,y\in\Q$, where $s=v(S)$ and $e=v(E)=v(E(K_X))$, the slope would satisfy $$\frac{y}{x}=\frac{m\pm\sqrt{m^2-2}}{2},$$ where $m=\langle s,e\rangle$.  But $S$ and $E$ are $\sigma_0$-stable objects of the same phase with classes in a lattice of signature $(1,-1)$, so we must have $m\geq 2$, as in the arguments for the preceeding cases.  But this gives a contradiction as $m^2-2$ cannot be a square for $m\geq 2$.
+\end{proof}
+
+\section{Dimension estimates substacks of Harder-Narasimhan filtrations}
+
+I would like to explain why the same estimate on the wall crossing term
+holds.
+Since ${\cal M}_{\sigma_\pm}(v)$ is isomorphic to a moduli stack of
+Gieseker semi-stable sheaves via FM $\Phi^\pm$, 
+${\cal M}_{\sigma_\pm}(v)$
+is isomorphic to a quotient stack
+$[Q_\pm/GL]$. 
+
+Let ${\cal F}(v_1,...,v_n)^0$ be a "substack" of ${\cal M}_{\sigma_+}(v)$
+such that for $E \in {\cal M}_{\sigma_+}(v)$,
+the Harder-Narasimhan filtration with respect to $\sigma_-$ is
+$$
+0 \subset F_1 \subset F_2 \subset \cdots \subset F_n
+$$
+with $v(F_{i+1}/F_i)=v_i$.
+In the paper with Minamide and Yanagida, I didn't treat 
+${\cal F}(v_1,...,v_n)^0$, but treat ${\cal Z}:=\cup_{v_1,...,v_n}{\cal F}(v_1,...,v_n)^0$
+the closed substack of unstable with respect to $\sigma_-$.
+
+Let ${\cal E}$ be the universal family on $Q \times X$, then
+${\cal Z}=Z/GL$ with
+$$
+Z=\{x \in Q_+ | \text{ $\Phi^- (\Phi^+)^{-1}({\cal E}_x)$ is not $\sigma_-$-semi-stable} \}.
+$$
+By the openness of Gieseker semi-stability, $Z$ is a closed subset of $Q_+$.
+
+We have 
+$\# Z({\Bbb F}_q)/\# GL({\Bbb F}_q)=\sum_{E \in {\cal Z}({\Bbb F}_q)} \frac{1}{\Aut E}$.
+The weighted number behaves very well for counting the number of extensions \cite{DR75}, and
+we  can estimate $\# Z({\Bbb F}_q)/\# GL({\Bbb F}_q)=\sum_{E \in {\cal Z}({\Bbb F}_q)} \frac{1}{\Aut E}$.
+Since ${\Bbb F}_q$ is arbitrary, from its behaviour, we can know
+$\dim Z-\dim GL=\dim {\cal Z}$. 
+
+Although I'm not sure but Toda's work on K3 surfaces  (arXiv:math/0703590)
+may give the same estimate without counting numbers over finite field.
+
+\begin{Prop}\label{Prop:HN codim}
+$$\codim\FF(v_1,...,v_n)^0=\sum_{i=1}^n (v_i^2-\dim\MM_{\sigma_-}(v_i))+\sum_{i<j}\langle v_i,v_j\rangle.$$
+
+\end{Prop}
+
+Before we enter into a lattice specific analysis of the wall-crossing behavior, we present a general result on the codimension of the strictly $\sigma_0$-semistable locus corresponding to the simplest Harder-Narasimhan filtration as above:
+\begin{Prop}\label{Prop:HN filtration all positive classes}
+Let $\FF(a_1,...,a_n)^0$ be the substack of $\MM_{\sigma_+}(v)$ parametrizing objects with $\sigma_-$ Harder-Narasimhan filtration factors of classes $a_1,...,a_n$ (in order of descending phase with respect to $\phi_{\sigma_-}$), and suppose that $a_i^2>0$ for all $i$.  Then $\codim\FF(a_1,...,a_n)^0\geq 2$.  
+\end{Prop}
+\begin{proof}
+By Theorem \ref{Thm:generic moduli spaces}, the assumption that $a_i^2>0$ implies that $\dim\MM_{\sigma_-}(a_i)=a_i^2$.  Thus by Proposition \ref{Prop:HN codim}, $$\codim\FF(a_1,...,a_n)^0=\sum_{i<j}\langle a_i,a_j\rangle.$$  But as $a_i^2\geq 1$ and $\HH$ has signature $(1,-1)$, we must have $$\langle a_i,a_j\rangle>\sqrt{a_i^2 a_j^2}\geq 1,$$ for $i<j$.  Thus $\langle a_i,a_j\rangle\geq 2$.  It follows that $$\codim\FF(a_1,...,a_n)^0\geq n(n-1)\geq 2,$$ as $n\geq 2$.
+\end{proof}
+\section{Non-isotropic walls}
+\begin{Lem}\label{Lem:dimension negative}
+If $u=lb$ with $b$ a primitive spherical or exceptional class, then for a generic stability condition $\sigma$, 
+$$\dim\MM_{\sigma}(u)= \begin{cases}
+ -l^2, & \text{ if }b^2=-2,\\
+
+-\frac{l^2}{2}, & \text{ if }b^2=-1,l\equiv 0\pmod 2,\\
+
+-\frac{l^2+1}{2}, & \text{ if }b^2=-1,l\equiv 1\pmod 2.\\
+ \end{cases}$$
+\end{Lem}
+\begin{proof}
+By \cite[Proposition 9.9]{Nue14b}, in case $b^2=-2$, the coarse moduli space $M_{\sigma}(u)$ consists of a single point, $S^{\oplus l}$, where $S$ is the unique $\sigma$-stable spherical object of class $b$.  As $\Aut(S^{\oplus l})=\GL_l(\C)$, we get $$\dim \MM_{\sigma}(u)=\dim M_{\sigma}(u)-\dim\Aut=-l^2.$$  If $b^2=-1$, then by \cite[Lemma 9.2]{Nue14b} the coarse moduli space $M_{\sigma}(u)$ consists of the $l+1$ points $\{E^{\oplus i}\oplus E(K_X)^{\oplus l-i}\}_{i=0}^l$, where $E$ and $E(K_X)$ are the two $\sigma_0$-stable exceptional objects of class $b$.  As $E,E(K_X)$ are both exceptional, $\Aut(E^{\oplus i}\oplus E(K_X)^{\oplus l-i})=\GL_i(\C)\times \GL_{l-i}(\C)$ of dimension $i^2+(l-i)^2$.  But then 
+\begin{align}
+\begin{split}\dim\MM_{\sigma}(u)&=\max_{0\leq i\leq l}\dim_{E^{\oplus i}\oplus E(K_X)^{\oplus l-i}} M_{\sigma}(u)-\Aut(E^{\oplus i}\oplus E(K_X)^{\oplus l-i})\\
+&=-\min_{0\leq i\leq l} i^2+(l-i)^2,\\
+\end{split}
+\end{align}
+which gives the dimension as claimed.
+\end{proof}
+\begin{Lem}\label{Lem:non-isotropic no totally semistable wall}Suppose that $\HH$ is non-isotropic and there exists no effective spherical or exceptional class pairing negatively with $v$.  Then $\WW$ cannot be a totally semistable wall.
+\end{Lem}
+\begin{proof}
+Suppose instead that $\WW$ is totally semistable and consider the Harder-Narasimhan filtration for $\sigma_-$-stability associated to the generic object of $M_+(v)$.  Denote by $a_1,\ldots,a_n$ the Mukai vectors of the semistable HN factors, and let $I=\{i|a_i^2>0\}$ and $a:=\sum_{i\in I}a_i$.  Write $b:=v-a$.  If $b^2>0$, then we automatically have $\langle a,b\rangle>\sqrt{a^2 b^2}\geq 1$, so $v^2=a^2+2\langle a,b\rangle+b^2\geq a^2+5$.  If instead $b^2<0$, then by assumption $a^2=v^2-2\langle v,b\rangle+b^2\leq v^2-1$.  So in any case $a^2<v^2$.  Expanding the squares on each side gives $$0<\sum_{i\in I^c}a_i^2+2\sum_{i<j,(i,j)\in (I^2)^c}\langle a_i,a_j\rangle,$$ and rearranging gives \begin{equation}\label{non-isotropic estimate}
+\sum_{i<j,(i,j)\in (I^2)^c}\langle a_i,a_j\rangle > -\frac{1}{2}\sum_{i\in I^c}a_i^2.\end{equation}
+
+Now as $\sigma_-$ is generic, up to applying a Fourier-Mukai transform, we may assume that $\sigma_-$-semistability for objects of class $v$ is equivalent to Gieseker semistability.  Thus the Harder-Narasimhan filtration for $\sigma_-$-semistability is in fact that of Gieseker semistability, so me may consider the stack $\FF(a_1,\ldots,a_n)$ of Harder-Narasimhan filtrations $$0\subset F_1\subset F_2\subset \cdots\subset F_n$$ with semistable factors $F_i/F_{i-1}$ of Mukai vector $a_i$.  Then by \cite[Lemma 5.3]{KY08} $$\dim \FF(a_1,...,a_n)=\sum_{i=1}^n\dim\MM_H(a_i)^{ss}+
+\sum_{i<j}\langle a_i,a_j\rangle,$$ where $\MM_H(a_i)^{ss}$ is the stack of $H$-semistable sheaves of Mukai vector $a_i$.  We consider further the open substack $\FF^0(a_1,\ldots,a_n)$ of filtrations such that $F_n$ is $\sigma_+$-stable after applying the inverse of the forementioned Fourier-Mukai transform.  This substack is non-empty by assumption.  As $$\dim M_+(v)=v^2,$$ we get that \begin{align}\label{codim estimate}
+\begin{split}\codim\FF^0(a_1,\ldots,a_n)&=\sum_i (a_i^2-\dim\MM_H(a_i)^{ss})+\sum_{i<j}\langle a_i,a_j\rangle\\
+&=\sum_{i\in I^c}(a_i^2-\dim\MM_H(a_i)^{ss})+\sum_{i<j,(i,j)\in I^2}\langle a_i,a_j\rangle+\sum_{i<j,(i,j)\in (I^2)^c}\langle a_i,a_j\rangle, 
+\end{split}
+\end{align}
+since $\dim\MM_H(a_i)^{ss}=a_i^2$ for $i\in I$.  Using the estimate from before, we in fact get 
+\begin{align*}
+\codim\FF^0(a_1,\ldots,a_n)&> \sum_{i\in I^c}(\frac{a_i^2}{2}-\dim\MM_H(a_i)^{ss})+\sum_{i<j,(i,j)\in I^2}\langle a_i,a_j\rangle\\
+&=\sum_{a_i\mbox{ exceptional}, l_i\equiv 1\pmod 2}\frac{1}{2}+\sum_{i<j,(i,j)\in I^2}\langle a_i,a_j\rangle,
+\end{align*}
+where for $i\in I^c$ we let $a_i=l_iv_i$ with $v_i$ primitive and the final equality follows from Lemma \ref{Lem:dimension negative}.  Moreover, for $(i,j)\in I^2$ with $i\neq j$, the signature of $\HH$ forces $\langle a_i,a_j\rangle\geq 2$.  Thus $$\codim\FF^0(a_1,\ldots,a_n)\geq|I|(|I|-1)\geq 0,$$ with strict inequality in each place if $a\neq v$ or $|I|>1$, respectively, contradicting the assumption that $\WW$ is totally semistable.  
+\end{proof}
+
+\begin{Lem}
+Assume that $\HH$ is non-isotropic.  If $v$ is the minimal class in its $G_{\HH}$-orbit and there is no spherical or exceptional class orthogonal to $v$, then the set of $\sigma_0$-stable objects in $M_{\sigma_+}(v)$ has complement of codimension at least two.
+\end{Lem}
+\begin{proof}
+Consider the complement of the set of $\sigma_0$-stable objects in $M_{\sigma_+}(v)$ and take the relative Harder-Narasimhan filtration on any irreducible component.  The proof is similar to that of \ref{Lem:non-isotropic no totally semistable wall}, and we use the same notation.  
+
+Under the current assumptions, however, we can improve the inequality $a^2\leq v^2$ if $I\neq\{1,\ldots,n\}$.  Indeed, if we write $b:=\sum_{i\in I^c}a_i$, then the assumptions imply that $\langle v,b\rangle>0$.  If $b^2>0$, then we automatically have $\langle a,b\rangle\geq 2$, so $$v^2=a^2+2\langle a,b\rangle+b^2\geq a^2+5.$$  If, instead, $b^2<0$, then $\langle v,b\rangle>0$ gives $$a^2=v^2-2\langle v,b\rangle+b^2\leq v^2-3,$$ so that $a^2\leq v^2-3$ in any case.  The analogue of \eqref{non-isotropic estimate} is now 
+\begin{equation}
+\sum_{i<j,(i,j)\in(I^2)^c}\langle a_i,a_j\rangle\geq\frac{3}{2}-\frac{1}{2}\sum_{i\in I^c}a_i^2.
+\end{equation}
+Using this estimate in \eqref{codim estimate} gives 
+\begin{align}
+\begin{split}
+\codim\FF^0(a_1,\ldots,a_n)&\geq\frac{3}{2}+\sum_{i\in I^c}(\frac{a_i^2}{2}-\dim\MM_H(a_i)^{ss})+\sum_{i<j,(i,j)\in (I^2)^c}\langle a_i,a_j\rangle\\
+&=\frac{3}{2}+\sum_{a_i\mbox{ exceptional}}(-\frac{1}{2}l_i^2+2\lfloor\frac{l_i}{2}\rfloor^2+2\lfloor\frac{l_i}{2}\rfloor+1)+\sum_{i<j,(i,j)\in I^2}\langle a_i,a_j\rangle\\
+&\geq\frac{3}{2}+|I|(|I|-1)\geq\frac{3}{2}.
+\end{split}
+\end{align}
+Thus if $|I|\neq n$, then $\codim\FF^0(a_1,\ldots,a_n)\geq 2$.  
+
+If instead $|I|=n$, then the estimate is simpler and we get 
+\begin{equation}
+\codim\FF^0(a_1,\ldots,a_n)=\sum_{i<j}\langle a_i,a_j\rangle\geq n(n-1)\geq 2,
+\end{equation}
+as $n\geq 2$.  
+\end{proof}
+
+\begin{Cor}
+Assume that $\HH$ is non-isotropic and that there does not exist a spherical or exceptional class orthogonal to $v$.  Then a potential wall associated to $\HH$ cannot induce a divisorial contraction except possibly when $X$ is nodal and $v^2=2$.  
+\end{Cor}
+\begin{proof}
+The proof is identical to that of \cite[Corollary 7.3]{BM14b} upon recognizing that since $M_{\sigma_+}(v)$ and $M_{\sigma_+}(v_0)$ have torsion canonical divisor, any birational map between them is an isomorphism in codimension one.  It is for this purpose that we exclude $v^2=2$ and $X$ nodal.  
+\end{proof}
+
+\begin{Lem}
+Assume $\HH$ is non-isotropic, $\WW$ is a potential wall associated to $\HH$.  Suppose further that $v^2\geq 2$.  If there exists a spherical class orthogonal to $v$, then $\WW$ induces a divisorial contraction.  
+\end{Lem}
+\begin{proof}
+Using a Fourier-Mukai transform, we can always reduce to the case that $v$ is minimal in its orbit as in \cite[Corollary 7.3, Lemma 7.5]{BM14b}.  We assume this to be the case, and, as before, we only treat case (c).  Then the spherical class must be $s$ or $t$ (in case c(i)), and we assume it is $s$ with the other case being  dealt with similarly.  As in \cite[Lemma 7.4]{BM14b}, we first prove that $v-s$ is also minimal.
+
+If $v^2=2$, then $(v-s)^2=0$, contrary to the assumption that $\HH$ is non-isotropic.  Thus in fact $v^2\geq 3$.  Write $v=xs+yu$, with $u$ either $t$ or $e$ in case (ci) and (cii), respectively.  Then $0=(s,v)$ gives $y=\frac{2}{m}x$.  As $\langle s,v-s\rangle=2$, to show that $v-s$ is minimal it suffices to check that $$0\leq \langle u,v-s\rangle=(mx+yu^2)-m=mx(1+\frac{2u^2}{m^2})-m=m(x(1+\frac{2u^2}{m^2})-1).$$  We now consider the cases (ci) and (cii) separately. 
+
+First suppose we are in case (ci).  Then $u^2=-2$, $\frac{3}{2}\leq x^2(1-\frac{4}{m^2})$, and $m\geq 3$.  Suppose that $m\geq 4$.  This translates into $(1-\frac{4}{m^2})\geq\frac{3}{4}$, from which it follows that $$x^2(1-\frac{4}{m^2})^2\geq\frac{9}{8}>1,$$ so indeed $\langle u,v-s\rangle>0$.  Otherwise, $m=3$.  It is easy to show that in this case $v^2=3$ and $\langle v,s\rangle=0$ have no rational solutions, so we may assume that $v^2\geq 4$.  But then $2\leq x^2(1-\frac{4}{m^2})$, so $$x^2(1-\frac{4}{m^2})^2=x^2(1-\frac{4}{m^2})\frac{5}{9}\geq\frac{10}{9}>1,$$ and again we have $\langle u,v-s\rangle>0$.
+
+Now suppose we are in case (cii).  Then $u^2=-1$, $\frac{3}{2}\leq x^2(1-\frac{2}{m^2}$, and $m\geq 2$.  Suppose first that $m\geq 3$.  Then $(1-\frac{2}{m^2})\geq\frac{7}{9}$ and thus $$x^2(1-\frac{2}{m^2})^2\geq x^2(1-\frac{2}{m^2})(\frac{7}{9}\geq\frac{7}{6}>1,$$ so we get $\langle u,v-s\rangle>0$.  Otherwise $m=2$ and again one can easily check that $v^2=3$ and $\langle v,s\rangle =0$ have no rational solutions, so $v^2\geq 4$, i.e. $x^2(1-\frac{2}{m^2})\geq 2$.  Thus $$x^2(1-\frac{2}{m^2})^2=x^2(1-\frac{2}{m^2})(\frac{1}{2})\geq 1,$$ so $\langle u,v-s\rangle\geq 0$.
+
+As we have shown that $v-s$ is minimal, Lemma \ref{Lem:non-isotropic no totally semistable wall} guarantees that the generic element $F\in M_{\sigma_+}(v-s)$ is also $\sigma_0$-stable.  But then .  But then for the unique $\sigma_0$-stable spherical object $S$ with $v(S)=s$ we have $\ext^2(F,S)=\hom(S(K_X),F)=\hom(S,F)=0=\hom(F,S)$ by stability.  Thus $\ext^1(F,S)=\langle v-s,s\rangle=2$, so there is a family of extension $$0\to S\to E_p\to F\to 0,$$ parametrized by $p\in\P^1=\P(\Ext^1(F,S))$, which are all $S$-equivalent with respect to $\sigma_0$.  By \cite[Lemma 6.9]{BM14b}, they are $\sigma_+$-stable.  Thus $\pi^+$ contracts this rational curve.  Varying $F\in M_{\sigma_0}^s(v-s)$ sweeps out a family of $\sigma_+$-stable objects in $M_{\sigma_+}(v)$ of dimension $1+(v-s)^2+1=v^2=\dim M_{\sigma_+}(v)-1$.  Thus we get a divisor contracted by $\pi^+$, which must then have relative Picard rank one, so this is the only component contracted by $\pi^+$.  
+
+
+\end{proof}
+
+\section{Isotropic walls}
+
+\begin{Lem}\label{Lem:isotropic lattice} Assume that there exists an isotropic class in $\HH$.  Then there are two effective, primitive, isotropic classes $w_1$ and $w_2$ in $\HH$ such that $\phi_-(w_1)>\phi_-(w_2)$.  Moreover, $P_{\HH}=\R_{\geq 0}w_1+\R_{\geq 0}w_2$ and $\langle v',w_i\rangle\geq 0$ for $i=1,2$ and any $v'\in P_{\HH}$.
+\end{Lem}
+\begin{proof}
+If $w\in\HH$ is a primitive isotropic class, then up to replacing $w$ by $-w$, we may assume that $w_1=w$ is effective as well.  Completing $w_1$ to a basis $\HH=\Z w_1+\Z v'$, we see that $$0=(x w_1+y v')^2=2xy\langle w_1,v'\rangle+y^2 (v')^2$$ has a second integral solution since we can assume $y\neq 0$ and the signature of $\HH$ forces $\langle w_1,v'\rangle\neq 0$.  Taking the unique effective primitive class on the corresponding line, we get $w_2$.  Up to reordering, we can guarantee that $\phi_-(w_1)>\phi_-(w_2)$.  Clearly $P_{\HH}$ is as claimed, and the inequality $\langle v',w_i\rangle\geq 0$ follows accordingly.
+\end{proof}
+
+\begin{Lem}
+Assume that $\rk v$ is odd.
+Assume that there is an isotropic Mukai vector in $\HH$.
+Then there are two isotropic and primitive Mukai vectors
+$u_1,u_2 \in \HH$ and $\ell(u_1)=\ell(u_2)$.
+\end{Lem}
+
+\begin{proof}
+Note that $\rk u_1$ and $\rk u_2$ are even.
+There is a Mukai vector $w$ with $\HH=\Z w+\Z u_1$.
+Since $\rk v$ is odd, $\rk w$ is also odd. 
+Then for $u_2=x w+y u_1$ with $x,y \in \Z$ and $\gcd(x,y)=1$,
+$x \rk w+y \rk u_1$ is even, which implies $x$ is even and $y$ is odd.
+Then $c_1(u_2) \equiv  c_1(u_1) \mod 2$.
+Hence $\ell(u_2)=\ell(u_1)$.
+\end{proof}
+
+
+
+
+\begin{Lem}\label{Lem:negative stable classes}
+\begin{enumerate}
+\item[(1)]
+Assume that there is a Mukai vector $u=x w+yu_1 \in \HH$ with $u^2=-1$. 
+Then
+$\HH=\Z u+\Z u_1$ and
+$u_2=\pm(u_1+2 \langle u_1,u \rangle u)$.
+\item[(2)]
+Assume that there is a Mukai vector $u=x w+yu_1 \in \HH$ with $u^2=-2$.
+Then $\HH=\Z u+\Z u_1$ and
+$u_2=\pm(u_1+ \langle u_1,u \rangle u)$.
+\end{enumerate}
+\end{Lem}
+
+\begin{proof}
+(1)
+Assume that there is a Mukai vector $u=x w+yu_1 \in \HH$ with $u^2=-1$.
+Then
+$-1=x(x w^2+2y \langle w,u_1 \rangle)$ implies
+$x=\pm 1$.  Replacing $w$ by $u$, we assume that $w^2=-1$.
+Then $u_2=\pm(u_1+2 \langle u_1,w \rangle w)$.
+
+
+(2) 
+Assume that there is a Mukai vector $u=x w+yu_1 \in \HH$ with $u^2=-2$.
+Then 
+$-2=x(x w^2+2y \langle w,u_1 \rangle)$ implies
+$x=\pm 1,\pm 2$.  
+If $x=\pm 2$, then $2 \mid (x w^2+2y \langle w,u_1 \rangle)$,
+which implies $4 \mid u^2$.
+Hence $x=\pm 1$.
+Replacing $w$ by $u$, we assume that $w^2=-2$.
+Then we see that the claim holds.
+\end{proof}
+
+\begin{Rem}
+\begin{enumerate}
+\item
+For case (1), $\rk w$ is odd. For case (2), $\rk w$ is even.
+Hence (1) and (2) does not occur simultaneously.
+\item
+For case (1), $\ell(u_1)=\ell(u_2)$.
+\end{enumerate}
+\end{Rem}
+
+\subsection{Isotropic walls with no spherical or exceptional classes}
+
+We begin our investigation with (what will likely be) the least involved case: when the isotropic lattice $\HH$ contains no spherical or exceptional classes.  In the notation of Lemma \ref{Lem:isotropic lattice}, let us observe that any object in $M_{\sigma_+}(w_i)$, $i=1,2$, remains $\sigma_0$-stable as the assumption on $\HH$ forces the $w_i$ to generate the extremal rays of $C_{\WW}=P_{\HH}$.  We collect another useful observation in the following simple result:
+\begin{Lem}\label{Lem:product bigger than 1}
+Suppose that $\HH$ is isotropic but contains no spherical or exceptional classes.  Then $\langle w_1,w_2\rangle\geq 2$ and $\langle v,w_i\rangle\geq 2$ for any positive class $v$.
+\end{Lem}
+\begin{proof}
+If $\langle w_1,w_2\rangle=1$, then $w_1-w_2$ is a spherical class.  Similarly, if $\langle v,w_i\rangle=1$ for some $i$, then $\frac{v^2+1}{2}w_i-v$ is an exceptional class if $v^2$ is odd while $\frac{v^2+2}{2}w_i-v$ is a spherical class if $v^2$ is even.  
+\end{proof}
+
+Now we come to the description of the wall-crossing behavior for isotropic lattices $\HH$ with no spherical or exceptional classes.
+
+\begin{Lem}\label{Lem:no spherical or exceptional divisorial contraction}
+Suppose that $v^2>4$ and $\langle v,w\rangle=2$ for a primitive, effective, isotropic $w\in\HH$ satisfying $l(w)=2$ and $M_{\sigma_0}(w)=M^s_{\sigma_0}(w)$.  Then $\WW$ induces a divisorial contraction.
+\end{Lem}
+\begin{proof}
+
+\end{proof}
+
+
+
+\begin{Prop}
+Suppose that the isotropic lattice $\HH$ contains no spherical or exceptional classes.  Let $v$ be a positive class.  Then $\WW$ can only be totally semistable if $v=w_1+w_2$, $l(w_1)=l(w_2)=2$, and $\langle w_1,w_2\rangle=2$, in which case $\WW$ induces a $\P^1$ fibration.  Furthermore, $\WW$ induces a divisorial contraction if and only if 1) $v^2\geq 4$, for some $i$ $\langle w_i,v\rangle=2$ and $l(w_i)=2$, or 2) $v=w_1+w_2$, $l(w_1)=l(w_2)=2$, and $\langle w_1,w_2\rangle=3$.  Otherwise, $\WW$ is a flopping wall, a fake wall, or not a wall at all.
+\end{Prop}
+\begin{proof}
+First we note that any substack $\FF(a_1,..,a_n)^0$ of objects with Harder-Narasimhan filtration factors of classes $a_1,...,a_n$ such that $a_i^2>0$ for all $i$ satisfies $\codim \FF(a_1,...,a_n)^0\geq 2$ by Proposition \ref{Prop:HN filtration all positive classes}, so we may assume some of the $a_i$ are isotropic, necessarily $a_1$ or $a_n$ as the $a_i$ are ordered according to $\phi_-$.
+
+Now let us break the proof into cases.
+
+\textbf{Case 1:} Suppose that $a_1=b_1w_1,a_n=b_2w_2$, with $b_i\geq 1$, and $l(w_1)=l(w_2)=1$.  Then let $l=n-2$, so we have \begin{align}\label{eq:case 1}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0&=\sum_{i=1}^n(a_i^2-\dim\MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j\rangle\\
+&\geq-\left\lfloor\frac{b_1}{2}\right\rfloor-\left\lfloor\frac{b_2}{2}\right\rfloor+b_1 b_2\langle w_1,w_2\rangle+\sum_{1<i<n}b_1\langle w_1,a_i\rangle+\sum_{1<i<n}b_2\langle w_2,a_i\rangle\\
+&+\sum_{1<i<j<n}\langle a_i,a_j\rangle\\
+&\geq\frac{b_1(2b_2-1)+b_2(2b_1-1)}{2}+2b_1 l+2b_2 l+l^2-l\geq 2,
+\end{split}
+\end{align}
+if $l\geq 1$, where the second inequality follows from $\langle w_1,w_2\rangle,\langle w_i,a_i\rangle,\langle a_i,a_j\rangle\geq 2$ as in Lemma \ref{Lem:product bigger than 1}.  If $l=0$, then $$\codim\FF(a_1,...,a_n)^0\geq\frac{b_1(2b_2-1)+b_2(2b_1-1)}{2}\geq 1,$$ with equality in the second inequality achieved only if $b_1=b_2=1$.  But then the first inequality of \eqref{eq:case 1} becomes $$\codim\FF(a_1,...,a_n)^0\geq \langle w_1,w_2\rangle\geq 2.$$
+
+\textbf{Case 2:} Suppose that $a_1=b_1w_1,a_n=b_2w_2$, with $b_i\geq 1$, and $l(w_1)=l(w_2)=2$.  Again letting $l=n-2$, we have \begin{align}\label{eq:case 2}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0&=\sum_{i=1}^n(a_i^2-\dim\MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j\rangle\\
+&\geq-b_1-b_2+b_1 b_2\langle w_1,w_2\rangle+\sum_{1<i<n}b_1\langle w_1,a_i\rangle+\sum_{1<i<n}b_2\langle w_2,a_i\rangle\\
+&+\sum_{1<i<j<n}\langle a_i,a_j\rangle\\
+&\geq b_1(b_2-1)+b_2(b_1-1)+2b_1 l+2b_2 l+l^2-l\geq 2,
+\end{split}
+\end{align}
+if $l\geq 1$.  If $l=0$, then $$\codim\FF(a_1,...,a_n)^0\geq b_1(b_2-1)+b_2(b_1-1)\geq 2,$$ unless $v=w_1+w_2,2w_1+w_2$, or $w_1+2w_2$.  In the latter two cases, we get $\codim\FF(a_1,...,a_n)^0>1$ if $\langle w_1,w_2\rangle>2$, while $\codim\FF(a_1,...,a_n)^0=1$ if $\langle w_1,w_2\rangle=2$.  If $v=2w_1+w_2$, then $\langle v,w_1\rangle=2$, and similarly, if $v=w_1+2w_2$, then $\langle v,w_2\rangle=2$.  Then by Lemma \ref{Lem:no spherical or exceptional divisorial contraction} $\WW$ induces a divisorial contraction.  
+
+If $v=w_1+w_2$, then clearly $\codim\FF(a_1,...,a_n)^0\geq 2$ if $\langle w_1,w_2\rangle>3$, while  $\codim\FF(a_1,...,a_n)=1$ if $\langle w_1,w_2\rangle=3$, and $\codim\FF(a_1,...,a_n)=0$ if $\langle w_1,w_2\rangle=2$.  Indeed, for these latter two claims, notice that $M_{\sigma_0}(w_i)=M^s_{\sigma_0}(w_i)$ has dimension 2 for each $i$ because $l(w_i)=2$, so stability guarantees that $\ext^1(F_2,F_1)=\langle w_1,w_2\rangle$ for any $F_i\in M_{\sigma_0}(w_i)$.  Thus those non-trivial extensions $E$ fitting into a short exact sequence $$0\to F_1\to E\to F_2\to 0$$ are $\sigma_+$-stable by \cite[Lemma 6.9]{BM14b} and sweep out a locus of dimension $$\dim M_{\sigma_0}(w_1)+\dim M_{\sigma_0}(w_2)+\dim\P\Ext^1(F_2,F_1)=2+2+(\langle w_1,w_2\rangle-1)=3+\langle w_1,w_2\rangle,$$ which is $\dim M_{\sigma_+}(v)$ if $\langle w_1,w_2\rangle=2$ and $\dim M_{\sigma_+}(v)-1$ if $\langle w_1,w_2\rangle=3$, as claimed.  Furthermore, as $\ext^1(F_2,F_1)>1$ in each case, $\WW$ contracts curves of non-isomorphic $S$-equivalent objects ($\P^1$'s in the former case and $\P^2$'s in the latter).
+
+\textbf{Case 3:} Suppose that $a_1=b_1w_1,a_n=b_2w_2$, with $b_i\geq 1$, and $l(w_1)\neq l(w_2)$.  Then without loss of generality, we may assume $l(w_1)=1,l(w_2)=2$.  Again letting $l=n-2$, we have \begin{align}\label{eq:case 3}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0&=\sum_{i=1}^n(a_i^2-\dim\MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j\rangle\\
+&\geq-\left\lfloor\frac{b_1}{2}\right\rfloor-b_2+b_1 b_2\langle w_1,w_2\rangle+\sum_{1<i<n}b_1\langle w_1,a_i\rangle+\sum_{1<i<n}b_2\langle w_2,a_i\rangle\\
+&+\sum_{1<i<j<n}\langle a_i,a_j\rangle\\
+&\geq \frac{2b_2(b_1-1)+b_1(2b_2-1)}{2}+2b_1 l+2b_2 l+l^2-l\geq 2,
+\end{split}
+\end{align}
+if $l\geq 1$. If $l=0$, then as $\frac{2b_2(b_1-1)+b_1(2b_2-1)}{2}\geq\frac{1}{2}$, we still have $\codim\FF(a_1,...,a_n)^0\geq 1$.  Moreover, $\frac{2b_2(b_1-1)+b_1(2b_2-1)}{2}\geq\frac{3}{2}$ unless $b_1=b_2=1$.  Thus $\codim\FF(a_1,...,a_n)^0=1$ can only happen if $v=w_1+w_2$ with $\langle w_1,w_2\rangle=2$, in which case $\langle v,w_2\rangle=2$ and $l(w_2)=2$ so that $\WW$ induces a divisorial contraction by Lemma \ref{Lem:no spherical or exceptional divisorial contraction}.
+
+\textbf{Case 4:} Now suppose that $a_i$ is isotropic for only one $i$, say $a_1=b_1w_1$ (the case $a_n=b_2w_2$ being entirely analogous).  Then letting $l=n-1$ and noting that $l>0$, we get \begin{align}\label{eq:case 4}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0&=\sum_{i=1}^n(a_i^2-\dim\MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j\rangle\\
+&\geq-b_1+\sum_{1<i}b_1\langle w_1,a_i\rangle+\sum_{1<i<j}\langle a_i,a_j\rangle\\
+&\geq-b_1+2b_1 l+l^2-l=(2l-1)b_1+l^2-l\geq 2,
+\end{split}
+\end{align}
+unless $l=b_1=1$.  Moreover, if $l(w_1)=1$ then $\dim\MM_{\sigma_-}(w_1)=0$, so $$\codim\FF(a_1,...,a_n)^0\geq 2l+l^2-l\geq 2.$$  Thus we can only get $\codim\FF(a_1,...,a_n)^0=1$ in this case if $l=b_1=1$,$l(w_1)=2$, and $\langle w_1,v-w_1\rangle=2$.  But this gives $\langle v,w_1\rangle=2$, so again by Lemma \ref{Lem:no spherical or exceptional divisorial contraction} we get a divisorial contraction.  
+
+Finally, we observe that the first case for a divisorial contraction stated in the proposition must give one of the situations described in Cases 2-4 above.  Indeed, if for example $l(w_1)=2$ and $\langle v,w_1\rangle=2$, then $(v-w_1)^2\geq 0$.  If $v^2>4$ then we must be in Cases 2 or 4.  If $v^2=4$, then $v-w_1=bw_2$ for some $b>0$.  As $$2=\langle v-w_1,w_1\rangle=\langle bw_2,w_1\rangle=b\langle w_1,w_2\rangle\geq 2b\geq 2,$$ we must have $b=1$ and we are in Cases 2 or 3.
+\end{proof}
+
+
+
+
+\subsection{Isotropic walls with a spherical class}
+
+Having studied the simplest case of an isotropical wall, we now investigate what happens when the isotropic lattice $\HH$ contains a spherical class $s$, which we may assume to be effective.  By Lemma \ref{Lem:negative stable classes} $\HH=\Z s+\Z w_1$ with $w_2=w_1+\langle w_1,s\rangle s$.  By Proposition \ref{Prop:lattice classification} there exists a unique $\sigma_0$-stable object $S$ with $v(S)=s$.  Moreover, notice that 
+\begin{equation}\label{eq: spherical isotropic constraint}
+\langle w_1,w_2\rangle=\langle w_1,s\rangle^2.
+\end{equation}
+\begin{Lem}\label{Lem:semistable isotropic}
+Let $\HH$ an isotropic lattice admitting an effective spherical class $s$.  If $E\in M_{\sigma_0}(w_{i})$ is strictly $\sigma_0$-semistable for some $i$, then $\langle w_{i},s\rangle<0$.
+\end{Lem}
+\begin{proof}
+Let the Harder-Narasimhan filtration of $E$ with respect to $\sigma_-$ correspond to a decomposition $w_i\sum_j a_j$.  If $a_j^2\geq 0$ for all $j$, then $\langle w_i,a_j\rangle>0$, so $$0=w_i^2=\sum_i \langle w_i,a_j\rangle>0,$$ a contradiction.  Thus some $a_i$ satisfies $a_i^2<0$, so we may assume, say, that $a_0=bs,b\geq 1$ as there is only one $\sigma_0$-stable object with negative square.  But then $$0=w_i^2=b\langle w_i,s\rangle+\sum_{i>0}\langle w_i,a_j\rangle>b\langle w_i,s\rangle,$$ so $\langle w_i,s\rangle<0$. 
+\end{proof}
+
+We have a more extensive converse to Lemma \ref{Lem:semistable isotropic} which is quite useful.
+\begin{Lem}\label{Lem:semistable positive}
+Let $\HH$ be an isotropic lattice admitting an effective spherical class $s$.  If $\langle v,s\rangle<0$, then every $E\in M_{\sigma_0}(v)$ is strictly $\sigma_0$-semistable.
+\end{Lem}
+\begin{proof}
+Indeed, suppose that $E\in M_{\sigma_0}^s(v)$.  Then $$\Hom(E,S)=\Hom(S,E)=\Hom(S(K_X),E)=\Ext^2(E,S)=0.$$  Thus $\langle v,s\rangle=\ext^1(E,S)\geq 0$, a contradiction. 
+\end{proof}
+
+Before we begin in earnest, let us first characterize the isotropic vectors $w_i$ and their $\sigma_0$-stable objects.
+\begin{Lem}\label{Lem: spherical isotropic classes}
+Suppose without loss of generality that $\langle w_1,s\rangle <0$.  Then $\langle w_2,s\rangle> 0$ and $M_{\sigma_0}^s(w_2)=M_{\sigma_0}(w_2)$. Moreover, if $l(w_1)=2$, then $l(w_2)=2$.
+\end{Lem}
+\begin{proof}
+The first statement follows directly from Lemma \ref{Lem:negative stable classes}(2) and Lemma \ref{Lem:semistable isotropic}.  For the second, observe that $\WW$ must be totally semistable for $w_1$ as $\langle w_1,s\rangle<0$.  For $\sigma_+$, however, $M_{\sigma_+}^s(w_1)=M_{\sigma_+}(w_1)\cong X$ since $l(w_1)=2$, so we may apply a Fourier-Mukai transform and assume that $w_1=(0,0,1)$, the Mukai vector of a point on $X$.  As $\HH_{\WW}$ is isotropic and contains a spherical class, it cannot contain an exceptional class by Proposition \ref{Prop:lattice classification}.  Thus by \cite[Proposition 4.5]{Yos16b} we must be in case ($A^+$) or ($A^-$) of \cite[Theorem 12.1]{Bri08}: there exists a $\sigma_0$-stable vector bundles $S$ such that $S$ or $S[2]$ is a Jordan-H\"{o}lder factor of $\C(x)$ for every $x\in X$, and the other non-isomorphic JH factor is either $\ST_S(\C(x))$ or $\ST_S^{-1}(\C(x))$.  Either way, the Mukai vector of this latter JH factor is $w_2$ which must be primitive and isotropic, and $\WW$ is not a wall for $w_2$.  By \cite[Lemma 4.6]{Yos16b}, these isotropic JH factors must be fixed by $-\otimes\OO(K_X)$, so $l(w_2)=2$.
+\end{proof}
+
+It follows that we need only consider three cases: $l(w_1)=l(w_2)=2$, $l(w_1)=l(w_2)=1$, and $l(w_2)=2,l(w_1)=1$.
+
+\subsubsection{The case $l(w_1)=l(w_2)=2$} 
+By assumption $M_{\sigma_0}^s(w_2)=M_{\sigma_0}(w_2)$, so $l(w_2)=2$ implies that $M_{\sigma_0}(w_2)\cong X$ and using a Fourier-Mukai transform $$\Phi:\Db(X)\cong\Db(X),$$ we get $\Phi(w_2)=(0,0,1)$.  By this construction, skyscraper sheaves of points on $X$ are  $\sigma_0$-stable. By Bridgeland’s Theorem 2.9, there exist divisor classes $\omega,\beta\in\NS(X)_{\Q}$, with $\omega$ ample, such that up to the $\GL_2(\R)$-action, $\Phi(\sigma_0)=\sigma_{\omega,\beta}$. In particular, the category $\PP_{\omega,\beta}(1)$ is the extension-closure of skyscraper sheaves of points, and the shifts $F[1]$ of $\mu_{\omega}$-stable torsion-free sheaves $F$ with slope $\mu_{\omega}(F) =\omega\cdot\beta$. Since $\sigma_0$ by assumption does not lie on any other wall with respect to $v$, the divisor $\omega$ is generic with respect to  $\Phi(v)$.  Henceforth, we identify $v$ with $\Phi(v)$, $\sigma_0$ with $\Phi(\sigma_0)$, etc.  Under these identifications, we have the following result whose proof is identical to that of \cite[Proposition 8.2]{BM14b}.
+\begin{Prop}\label{Prop:Uhlenbeck morphism}
+An object of class $v$ is $\sigma_+$-stable if and only if it is the shift $F[1]$ of a $(\beta,\omega)$-Gieseker stable sheaf $F$ on $X$; the shift $[1]$ induces the following identification of moduli spaces: $$M_{\sigma_+}(v) = M_{\omega}^{\beta}(-v).$$
+Moreover, the contraction morphism $\pi^+$ induced by the wall $\WW$ is the Li-Gieseker-Uhlenbeck morphism to the Uhlenbeck compactification.
+\end{Prop}
+
+Using Proposition \ref{Prop:Uhlenbeck morphism}, we can easily identify another sufficient condition for $\WW$ to be a totally semistable wall:
+
+\begin{Lem}
+Let $\WW$ be a potential isotropic wall with $l(w_i)=2$ for each $i$.  If there exists an isotropic wall $w\in\HH_{\WW}$ with $\langle v,w\rangle=1$, then $\WW$ is a totally semistable wall.  If, in addition, $\langle v,s\rangle\geq 0$, then $\WW$ induces a divisorial contraction.
+\end{Lem}
+\begin{proof}
+By Lemma \ref{Lem:isotropic lattice}, $w$ must be effective and thus equal to either $w_1$ or $w_2$.  If $w=w_2$ then by Proposition \ref{Prop:Uhlenbeck morphism} and our assumption on $w_2$, we may assume $w=(0,0,1)$ so that $1=\langle v,w\rangle$ implies that $-v$ has rank 1 and $M_{\sigma_+}(v)$ is isomorphic to the Hilbert scheme of $\frac{v^2+1}{2}$ points.  It follows that $\WW$ is the Hilbert-Chow wall inducing the Hilbert-Chow morphism as in \cite[Proposition 13.1]{Nue14b}, so it is totally semistable and induces a divisorial contraction.
+
+Otherwise $w=w_1$, and, as $w_2=w_1+\langle w_1,s\rangle s$ with $\langle w_1,s\rangle<0$, we get $$1\leq\langle v,w_2\rangle=\langle v,w_1\rangle+\langle w_1,s\rangle\langle v,s\rangle=1+\langle w_1,s\rangle\langle v,s\rangle.$$ Thus $\langle v,s\rangle\leq 0$.  If $\langle v,s\rangle<0$, then $\WW$ is totally semistable by Lemma \ref{Lem:semistable positive}, while if $\langle v,s\rangle=0$, then we must have $\langle v,w_2\rangle=1$ as well, so we may reduce to the case above.
+\end{proof}
+
+\begin{Lem}
+Suppose that $\langle v,w_2\rangle=2$.  Then $\WW$ is not a totally semistable wall and induces a divisorial contraction.
+\end{Lem}
+\begin{proof}
+Using the identification afforded by Proposition \ref{Prop:Uhlenbeck morphism}, we may assume that $w_2=(0,0,1)$ and that we are looking at the LGU morphism from $M_{\omega}^{\beta}(-v)$ to its Uhlenbeck compactification.  But then $\langle v,w_2\rangle=2$ implies that after applying a Fourier-Mukai transform $v=-(2,D,s)$, where we may assume that either $D=0$ or $D$ is not divisible by 2.  If $D=0$, then $(2,0,1)\in\HH_{\WW}$, and by the primitivity of $\HH$, we must have $u=(1,0,\frac{1}{2})\in\HH$.  But as $u^2=-1$, this cannot be the case.
+
+So $D$ must be a non-zero divisor not divisibile by 2.  But then we are in cases (A) or (C) of \cite[Theorem 2.1]{Yos16a}, with $\gcd(2,D)=1$, so every component of $M_{\omega}^{\beta}(-v)$ contains a $\mu$-stable locally free sheaf.  Thus $\WW$ is not totally semistable.
+
+Furthermore, because $\gcd(2,D)=1$, there cannot be any properly $\mu$-semistable sheaves contracted by the LGU morphism.  However, writing $v'=-(2,D,s+1)$, we see that $v'^2\geq -2$ and again invoking \cite[Theorem 2.1]{Yos16a} we get that $M_{\omega}^{\beta}(-v')\neq 0$ generically consists of $\mu$-stable locally free sheaves.  Taking such a locally free $\mu$-stable sheaf $F\in M_{\omega}^{\beta}(-v')$ and a point $x\in X$, $\Hom(F,\C(x))=2$, so the surjections $F\onto\C(x)$ give a $\P^1$ of extensions contracted by LGU morphism.  A quick dimension count shows that these sweep out a divisor.
+\end{proof}
+Thus we may assume $\langle v,s\rangle\geq 0$, $\langle v,w_1\rangle\geq 2$, and $\langle v,w_2\rangle\geq 3$.
+\begin{Prop}
+Assume that $\langle v,s\rangle\geq 0$, $\langle v,w_1\rangle\geq 2$, and $\langle v,w_2\rangle\geq 3$.  Then $M_{\sigma_0}^s(v)\neq\varnothing$.  Moreover, if $\WW$ induces a divisorial contraction, then $\langle v,w_1\rangle=2$, $\langle v,w_2\rangle=3$, or $\langle v,s\rangle=0$.  Otherwise, $\WW$ is either a flopping wall or not a wall at all.
+\end{Prop}
+\begin{proof}  As usual we let the Harder-Narasimhan filtration of $E$ with respect to $\sigma_-$ correspond to a decomposition $v=\sum_i a_i$.  We shall estimate the codimension of the sublocus of destabilized objects which is equal to
+ \begin{equation}
+\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle.
+\end{equation}
+
+
+(I) We first assume that one of $a_i$ satisfies $a_i^2<0$.
+For simpicity, we assume that $a_0=b_0 s$ with $s^2=-2$.
+
+Assume that $a_1$ and $a_2$ are isotropic.
+We may set $a_1=b_1 w_1$ and $a_2=b_2 w_2$.
+Then 
+ \begin{equation}\label{eq: spherical 2,2 case I}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-b_1-b_2+b_1 b_2 \langle w_1,w_2 \rangle\\
+\geq & b_0^2+b_0 \langle s,v \rangle-b_1-b_2+b_1 b_2 \langle w_1,w_2 \rangle \\
+\geq & 1-b_1-b_2+b_1 b_2 \geq 0,
+\end{split}
+\end{equation} 
+ and equality holds in the last inequality only if $\langle v, s\rangle=0,\langle w_1,w_2\rangle=1$, $v=a_0+a_1+a_2$ with $b_0=1$ and either $b_1=1$ or $b_2=1$.  But then $v=s+w_1+b_2 w_2$ or $s+b_1 w_1+w_2$.  But $\langle w_1,w_2\rangle=1$ implies $\langle s,w_1\rangle =-1$ and $\langle s,w_2\rangle=1$.  So in the latter case, $0\leq\langle s,v\rangle=-2-b_1+1$ and thus $b_1\leq -1$,which is impossible.  In the first case, $\langle v,w_2\rangle=2$, contrary to assumption.  Thus we must have strict inequality in \eqref{eq: spherical 2,2 case I}.  If $\codim\FF(a_0,a_1,...,a_n)^0=1$, then we must have $b_1 b_2=b_1+b_2$ whose only solution is $b_1=b_2=2$.  Thus $v=s+2w_1+2w_2$ and $\langle w_1,w_2\rangle=1$.  But then $\langle v,s\rangle=-2<0$, contrary to assumption.  So in fact $\codim\FF(a_0,a_1,...,a_n)^0\geq 2$ in this case.
+
+
+Now assume that $a_1=b_1 w_j$ and $a_i^2>0$ for $i>1$.  Then 
+ \begin{equation}
+\begin{split}
+ \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+&\geq  -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-b_1+\sum_{i \geq 2} b_1 \langle w_j,a_i \rangle\\
+\geq & b_0 \langle s,v \rangle+b_0^2
+-b_1+b_1 \langle w_j,a_2 \rangle 
+\geq  b_0^2 \geq 1,
+\end{split}
+\end{equation}
+with equality only if $v=s+b_1w_j+a_2$, $\langle w_j,a_2\rangle=1$ and $\langle s,v\rangle=0$.  But then $$\langle v,w_j\rangle=\langle s,w_j\rangle+\langle a_2,w_j\rangle=\langle s,w_j\rangle+1,$$ so $\langle s,w_1\rangle<0$ implies that $j=2$ and $\langle v,w_2\rangle\geq 3$ gives $\langle s,w_2\rangle\geq 2$.  Moreover, as $w_2=w_1+\langle w_1,s\rangle s$, $$1=\langle a_2,w_2\rangle=\langle a_2,w_1\rangle+\langle w_1,s\rangle\langle a_2,s\rangle\geq 1+\langle w_1,s\rangle\langle a_2,s\rangle,$$ so $\langle a_2,s\rangle\geq 0$ follows from $\langle w_1,s\rangle<0$.  But then $$0=\langle s,v\rangle=-2+b_1\langle s,w_2\rangle+\langle s,a_2\rangle\geq 2b_1-2\geq 0,$$ so we must have $b_1=1$, $\langle s,w_2\rangle=2$ and $\langle s,a_2\rangle=0$.  Moreover, by \eqref{eq: spherical isotropic constraint} we get $\langle w_1,w_2\rangle=(-\langle w_2,s\rangle)^2=4$.  Otherwise, $\codim\FF(a_0,a_1,...,a_n)^0\geq 2$.
+
+We can now assume that there are no positive classes in the Harder-Narasimhan factors, i.e. $v=b_0 s+b_1 w_j$.  But $v^2>0$ forces $j=2$, so we may assume this outright.  Then $0 \leq \langle v,s \rangle=-2b_0+b_1 \langle w_2,s \rangle$, so our estimate becomes 
+
+ \begin{equation}\label{eq: spherical 2,2 case I, c}
+\begin{split}
+\codim\FF(a_0,a_1)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+= & -b_0^2-b_1+b_0b_1\langle s,w_2\rangle=-b_0^2+\frac{b_0b_1\langle s,w_2\rangle}{2}+b_1\left(\frac{b_0\langle s,w_2\rangle}{2}-1\right)\\
+= & \frac{b_0}{2}\langle v,s\rangle+b_1\left(\frac{\langle v,w_2\rangle}{2}-1\right)\geq \frac{b_0}{2}\langle v,s\rangle+\frac{b_1}{2}\geq \frac{b_1}{2}\geq\frac{1}{2},
+\end{split}
+\end{equation}
+as $\langle v,w_2\rangle\geq 3$.  If $b_1\geq 3$, then $\codim\FF(a_0,a_1)^0\geq 2$.  If $\langle v,s\rangle\geq 1$, then $$\codim\FF(a_0,a_1)^0\geq \frac{b_0}{2}+\frac{b_1}{2},$$ which shows that $\codim\FF(a_0,a_1)^0\geq 2$ unless $v=s+w_2$ with $\langle v,w_2\rangle=3$.  If instead $\langle v,s\rangle=0$, then as $3\leq\langle v,w_2\rangle=b_0\langle s,w_2\rangle$, the second line of \eqref{eq: spherical 2,2 case I, c} becomes $$\codim\FF(a_0,a_1)^0=b_0^2-b_1\geq\frac{b_0^2}{3}\geq\frac{4}{3}.$$    So $\codim\FF(a_0,a_1)^0\geq 2$ in this case. 
+
+Finally, assume that other than $a_0=b_0 s$, $a_i^2>0$ for all $i>0$.  Then the estimate becomes 
+
+\begin{equation}\label{eq: spherical 2,2 case I, d}
+\begin{split}
+\codim\FF(a_0,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+= & b_0^2+b_0\langle s,v\rangle+\sum_{0<i<j}\langle a_i,a_j\rangle\geq b_0^2\geq 1,
+\end{split}
+\end{equation}
+
+with equality only if $\langle s,v\rangle=0$ and $v=s+a_1$.  
+
+
+
+(II) We next assume that $a_i^2 \geq 0$ for all $i$.
+ 
+
+We assume $a_1=b_1 w_1$ and $a_2=b_2 w_2$.
+Then 
+ \begin{equation}\label{eq: spherical 2,2 case II,a}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq &
+-b_1-b_2+b_1 b_2 \langle w_1,w_2 \rangle
++\sum_{i \geq 3} \langle a_i,a_1\rangle+\sum_{i\geq 3}\langle a_i,a_2 \rangle\\
+= & -b_1-b_2+\sum_{i\geq 3}\langle b_1w_1,a_i\rangle+b_2\langle w_2,v\rangle\\
+\geq &
+-b_1+2b_2+\sum_{i\geq 3}\langle b_1w_1,a_i\rangle.
+\end{split}
+\end{equation}
+If $a_3\neq 0$, then $$-b_1+\sum_{i\geq 3}\langle b_1 w_1,a_i\rangle\geq 0,$$ so $\codim\FF(a_1,...,a_n)^0\geq 2$.  Otherwise, $v=b_1w_1+b_2w_2$ and \eqref{eq: spherical 2,2 case II,a} becomes 
+\begin{equation}\label{eq: spherical 2,2 case II,aa}
+\begin{split}
+\codim\FF(a_1,a_2)^0\geq&-b_1-b_2+b_1b_2\langle w_1,w_2\rangle\\
+=& -b_1-b_2+\frac{b_1}{2}\langle v,w_1\rangle+\frac{b_2}{2}\langle v,w_2\rangle\geq\frac{b_2}{2}\geq\frac{1}{2}.
+\end{split}
+\end{equation}
+
+Thus $\codim\FF(a_1,a_2)^0\geq 2$ if $b_2\geq 3$.  As $0\leq\langle v,s\rangle=\langle w_2,s\rangle(b_2-b_1)$ we must have $b_2\geq b_1$.  So if $b_2=1$, then the only solution is $b_1=1$ and $\langle w_1,w_2\rangle=3$.  If $b_2=2$, then $$2\langle w_1,w_2\rangle=b_2\langle w_1,w_2\rangle\geq b_1\langle w_1,w_2\rangle=\langle v,w_2\rangle\geq 3,$$ which gives $\langle w_1,w_2\rangle\geq 2$, so \eqref{eq: spherical 2,2 case II,aa} becomes $$\codim\FF(a_1,a_2)^0\geq -b_1-2+2b_1\langle w_1,w_2\rangle\geq 4b_1-2\geq 2.$$
+
+
+Now we assume that $a_1=b_1 w_j$ and $a_i^2>0$ for $i \geq 2$.
+In this case, we also see that
+\begin{equation}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq&-b_1+\sum_{i>1}b_1\langle w_j,a_i\rangle+\sum_{1<i<k}\langle a_i,a_k\rangle\\
+=&b_1(\langle v,w_j\rangle-1)+\sum_{1<i<k}\langle a_i,a_k\rangle\\
+\geq&b_1(\langle v,w_j\rangle-1).
+\end{split}
+\end{equation}
+
+So if $j=2$, then $\langle v,w_j\rangle\geq 3$ and $\codim\FF(a_1,...,a_n)^0\geq 2$.  If $j=1$, then we just have $\langle v,w_j\rangle\geq 2$, so $\codim\FF(a_1,...,a_n)^0\geq 2$ unless $v=w_1+a_2$ with $\langle v,w_1\rangle=2$.
+
+Finally, if $a_i^2>0$ for all $i$, then $\codim\FF(a_1,...,a_n)^0\geq 2$ by Proposition \ref{Prop:HN filtration all positive classes}.
+\end{proof}
+
+
+\subsubsection{The case $l(w_1)=l(w_2)=1$.}
+\begin{proof}  Let the Harder-Narasimhan filtration of $E$ with respect to $\sigma_-$ correspond to a decomposition $v=\sum_i a_i$.  We shall estimate the codimension of the sublocus of destabilized objects which is equal to
+ \begin{equation}
+\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle.
+\end{equation}
+
+
+(I) We first assume that one of the $a_i$ satisfies $a_i^2<0$.
+For simpicity, we assume that $a_0=b_0 s$ with $s^2=-2$.
+
+Assume that $a_1$ and $a_2$ are isotropic.
+We may set $a_1=b_1 w_1$ and $a_2=b_2 w_2$.
+Then 
+ \begin{equation}\label{eq: spherical 1,1 case I}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-\left\lfloor\frac{b_1}{2}\right\rfloor-\left\lfloor\frac{b_2}{2}\right\rfloor+b_1 b_2 \langle w_1,w_2 \rangle\\
+\geq & b_0^2+b_0 \langle s,v \rangle-\left\lfloor\frac{b_1}{2}\right\rfloor-\left\lfloor\frac{b_2}{2}\right\rfloor+b_1 b_2 \langle w_1,w_2 \rangle\\
+\geq & 1-\frac{b_1}{2}-\frac{b_2}{2}+b_1 b_2=1+\frac{b_2(b_1-1)+b_1(b_2-1)}{2} \geq 1,
+\end{split}
+\end{equation} 
+ and equality holds in the last inequality only if $\langle v, s\rangle=0,\langle w_1,w_2\rangle=1$, $v=s+w_1+w_2$.  But then $\langle v,s\rangle=-2<0$, contrary to assumption.  So we must have $\codim\FF(a_0,...,a_n)^0\geq 2$ in this case.
+ 
+
+Now assume that $a_1=b_1 w_j$ and $a_i^2>0$ for $i>1$.  Then 
+\begin{equation}
+\begin{split}
+ \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+& \geq  -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-b_1
+%-\left\lfloor\frac{b_1}{2}\rfloor
++\sum_{i \geq 2} b_1 \langle w_j,a_i \rangle\\
+& \geq  b_0 \langle s,v \rangle+b_0^2
+-b_1+b_1 \langle w_j,a_2 \rangle 
+\geq  b_0^2 \geq 1,\\
+\end{split}
+\end{equation}
+with equality only if $v=s+b_1w_j+a_2$, $\langle w_j,a_2\rangle=1$ and $\langle s,v\rangle=0$.  But then $$\langle v,w_j\rangle=\langle s,w_j\rangle+\langle a_2,w_j\rangle=\langle s,w_j\rangle+1,$$ so $\langle s,w_1\rangle<0$ implies that $j=2$ and $\langle v,w_2\rangle\geq 3$ gives $\langle s,w_2\rangle\geq 2$.  Moreover, as $w_2=w_1+\langle w_1,s\rangle s$, $$1=\langle a_2,w_2\rangle=\langle a_2,w_1\rangle+\langle w_1,s\rangle\langle a_2,s\rangle\geq 1+\langle w_1,s\rangle\langle a_2,s\rangle,$$ so $\langle a_2,s\rangle\geq 0$ follows from $\langle w_1,s\rangle<0$.  But then $$0=\langle s,v\rangle=-2+b_1\langle s,w_2\rangle+\langle s,a_2\rangle\geq 2b_1-2\geq 0,$$ so we must have $b_1=1$, $\langle s,w_2\rangle=2$ and $\langle s,a_2\rangle=0$.  Moreover, by \eqref{eq: spherical isotropic constraint} we get $\langle w_1,w_2\rangle=(-\langle w_2,s\rangle)^2=4$.  Otherwise, $\codim\FF(a_0,a_1,...,a_n)^0\geq 2$.
+
+We can now assume that there are no positive classes in the Harder-Narasimhan factors, i.e. $v=b_0 s+b_1 w_j$.  But $v^2>0$ forces $j=2$, so we may assume this outright.  Then $0 \leq \langle v,s \rangle=-2b_0+b_1 \langle w_2,s \rangle$, so our estimate becomes 
+
+ \begin{equation}\label{eq: spherical 2,2 case I, c}
+\begin{split}
+\codim\FF(a_0,a_1)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+= & -b_0^2-b_1+b_0b_1\langle s,w_2\rangle=-b_0^2+\frac{b_0b_1\langle s,w_2\rangle}{2}+b_1\left(\frac{b_0\langle s,w_2\rangle}{2}-1\right)\\
+= & \frac{b_0}{2}\langle v,s\rangle+b_1\left(\frac{\langle v,w_2\rangle}{2}-1\right)\geq \frac{b_0}{2}\langle v,s\rangle+\frac{b_1}{2}\geq \frac{b_1}{2}\geq\frac{1}{2},
+\end{split}
+\end{equation}
+as $\langle v,w_2\rangle\geq 3$.  If $b_1\geq 3$, then $\codim\FF(a_0,a_1)^0\geq 2$.  If $\langle v,s\rangle\geq 1$, then $$\codim\FF(a_0,a_1)^0\geq \frac{b_0}{2}+\frac{b_1}{2},$$ which shows that $\codim\FF(a_0,a_1)^0\geq 2$ unless $v=s+w_2$ with $\langle v,w_2\rangle=3$.  If instead $\langle v,s\rangle=0$, then as $3\leq\langle v,w_2\rangle=b_0\langle s,w_2\rangle$, the second line of \eqref{eq: spherical 2,2 case I, c} becomes $$\codim\FF(a_0,a_1)^0=b_0^2-b_1\geq\frac{b_0^2}{3}\geq\frac{4}{3}.$$    So $\codim\FF(a_0,a_1)^0\geq 2$ in this case. 
+
+Finally, assume that other than $a_0=b_0 s$, $a_i^2>0$ for all $i>0$.  Then the estimate becomes 
+
+\begin{equation}\label{eq: spherical 2,2 case I, d}
+\begin{split}
+\codim\FF(a_0,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+= & b_0^2+b_0\langle s,v\rangle+\sum_{0<i<j}\langle a_i,a_j\rangle\geq b_0^2\geq 1,
+\end{split}
+\end{equation}
+
+with equality only if $\langle s,v\rangle=0$ and $v=s+a_1$.  
+
+
+
+(II) We next assume that $a_i^2 \geq 0$ for all $i$.
+ 
+
+We assume $a_1=b_1 w_1$ and $a_2=b_2 w_2$.
+Then 
+ \begin{equation}\label{eq: spherical 2,2 case II,a}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq &
+-b_1-b_2+b_1 b_2 \langle w_1,w_2 \rangle
++\sum_{i \geq 3} \langle a_i,a_1\rangle+\sum_{i\geq 3}\langle a_i,a_2 \rangle\\
+= & -b_1-b_2+\sum_{i\geq 3}\langle b_1w_1,a_i\rangle+b_2\langle w_2,v\rangle\\
+\geq &
+-b_1+2b_2+\sum_{i\geq 3}\langle b_1w_1,a_i\rangle.
+\end{split}
+\end{equation}
+If $a_3\neq 0$, then $$-b_1+\sum_{i\geq 3}\langle b_1 w_1,a_i\rangle\geq 0,$$ so $\codim\FF(a_1,...,a_n)^0\geq 2$.  Otherwise, $v=b_1w_1+b_2w_2$ and \eqref{eq: spherical 2,2 case II,a} becomes 
+\begin{equation}\label{eq: spherical 2,2 case II,aa}
+\begin{split}
+\codim\FF(a_1,a_2)^0\geq&-b_1-b_2+b_1b_2\langle w_1,w_2\rangle\\
+=& -b_1-b_2+\frac{b_1}{2}\langle v,w_1\rangle+\frac{b_2}{2}\langle v,w_2\rangle\geq\frac{b_2}{2}\geq\frac{1}{2}.
+\end{split}
+\end{equation}
+
+Thus $\codim\FF(a_1,a_2)^0\geq 2$ if $b_2\geq 3$.  As $0\leq\langle v,s\rangle=\langle w_2,s\rangle(b_2-b_1)$ we must have $b_2\geq b_1$.  So if $b_2=1$, then the only solution is $b_1=1$ and $\langle w_1,w_2\rangle=3$.  If $b_2=2$, then $$2\langle w_1,w_2\rangle=b_2\langle w_1,w_2\rangle\geq b_1\langle w_1,w_2\rangle=\langle v,w_2\rangle\geq 3,$$ which gives $\langle w_1,w_2\rangle\geq 2$, so \eqref{eq: spherical 2,2 case II,aa} becomes $$\codim\FF(a_1,a_2)^0\geq -b_1-2+2b_1\langle w_1,w_2\rangle\geq 4b_1-2\geq 2.$$
+
+
+Now we assume that $a_1=b_1 w_j$ and $a_i^2>0$ for $i \geq 2$.
+In this case, we also see that
+\begin{equation}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq&-b_1+\sum_{i>1}b_1\langle w_j,a_i\rangle+\sum_{1<i<k}\langle a_i,a_k\rangle\\
+=&b_1(\langle v,w_j\rangle-1)+\sum_{1<i<k}\langle a_i,a_k\rangle\\
+\geq&b_1(\langle v,w_j\rangle-1).
+\end{split}
+\end{equation}
+
+So if $j=2$, then $\langle v,w_j\rangle\geq 3$ and $\codim\FF(a_1,...,a_n)^0\geq 2$.  If $j=1$, then we just have $\langle v,w_j\rangle\geq 2$, so $\codim\FF(a_1,...,a_n)^0\geq 2$ unless $v=w_1+a_2$ with $\langle v,w_1\rangle=2$.
+
+Finally, if $a_i^2>0$ for all $i$, then $\codim\FF(a_1,...,a_n)^0\geq 2$ by Proposition \ref{Prop:HN filtration all positive classes}.
+\end{proof}
+
+
+
+\subsubsection{The case $l(w_1)=l(w_2)=1$.}
+\begin{Prop}
+Let $\WW$ be an isotropic wall such that $l(w_1)=l(w_2)=1$.  If $\WW$ is a totally semistable wall, then $v=s+2w_2$ and $\langle v,w_2\rangle=1$.  If $\WW$ induces a divisorial contraction, then $v=s+w_2$ ($\langle s,w_2\rangle=2$), $v=s+a_1$ ($a_1^2>0$ and $\langle s,v\rangle=0$), $v=w_1+w_2,2w_1+w_2,w_1+2w_2$ ($\langle w_1,w_2\rangle$), or for some $j$, $v=w_j+a_2,2w_j+a_2$ ($\langle v,w_j\rangle=1$).  Otherwise, $\WW$ is a flopping wall or not a wall at all.
+\end{Prop}
+\begin{proof}  Let the Harder-Narasimhan filtration of $E$ with respect to $\sigma_-$ correspond to a decomposition $v=\sum_i a_i$.  We shall estimate the codimension of the sublocus of destabilized objects which is equal to
+ \begin{equation}
+\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle.
+\end{equation}
+
+
+(I) We first assume that one of the $a_i$ satisfies $a_i^2<0$.
+For simpicity, we assume that $a_0=b_0 s$ with $s^2=-2$.
+
+Assume that $a_1$ and $a_2$ are isotropic.
+We may set $a_1=b_1 w_1$ and $a_2=b_2 w_2$.
+Then 
+ \begin{equation}\label{eq: spherical 1,1 case I}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-\left\lfloor\frac{b_1}{2}\right\rfloor-\left\lfloor\frac{b_2}{2}\right\rfloor+b_1 b_2 \langle w_1,w_2 \rangle\\
+\geq & b_0^2+b_0 \langle s,v \rangle-\left\lfloor\frac{b_1}{2}\right\rfloor-\left\lfloor\frac{b_2}{2}\right\rfloor+b_1 b_2 \langle w_1,w_2 \rangle\\
+\geq & 1-\frac{b_1}{2}-\frac{b_2}{2}+b_1 b_2=1+\frac{b_2(b_1-1)+b_1(b_2-1)}{2} \geq 1,
+\end{split}
+\end{equation} 
+ and equality holds in the last inequality only if $\langle v, s\rangle=0,\langle w_1,w_2\rangle=1$, $v=s+w_1+w_2$.  But then $\langle v,s\rangle=-2<0$, contrary to assumption.  So we must have $\codim\FF(a_0,...,a_n)^0\geq 2$ in this case.
+ 
+
+Now assume that $a_1=b_1 w_j$ and $a_i^2>0$ for $i>1$.  Then 
+ \begin{equation}
+\begin{split}
+ \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+&\geq  -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-\left\lfloor\frac{b_1}{2}\right\rfloor+\sum_{i \geq 2} b_1 \langle w_j,a_i \rangle\\
+\geq & b_0 \langle s,v \rangle+b_0^2
+-\left\lfloor\frac{b_1}{2}\right\rfloor+b_1 \langle w_j,a_2 \rangle 
+\geq  b_0^2+\frac{b_1}{2} \geq \frac{3}{2},
+\end{split}
+\end{equation}
+so we always have $\codim\FF(a_0,a_1,...,a_n)^0\geq 2$ in this case.
+
+We can now assume that there are no positive classes in the Harder-Narasimhan factors, i.e. $v=b_0 s+b_1 w_j$.  But $v^2>0$ forces $j=2$, so we may assume this outright.  Then $0 \leq \langle v,s \rangle=-2b_0+b_1 \langle w_2,s \rangle$, so our estimate becomes 
+
+ \begin{equation}\label{eq: spherical 1,1 case I, c}
+\begin{split}
+\codim\FF(a_0,a_1)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -b_0^2-\frac{b_1}{2}+b_0b_1\langle s,w_2\rangle=-b_0^2+\frac{b_0b_1\langle s,w_2\rangle}{2}+\frac{b_1}{2}\left(b_0\langle s,w_2\rangle-1\right)\\
+= & \frac{b_0}{2}\langle v,s\rangle+\frac{b_1}{2}\left(\langle v,w_2\rangle-1\right)> 0,
+\end{split}
+\end{equation}
+unless $\langle v,s\rangle=0$ and $\langle v,w_2\rangle=1$.  But then $v=s+2w_2$ and $\langle s,w_2\rangle=1$.  Moreover, $\codim \FF(a_0,a_1)^0\geq 2$ unless $v=s+w_2$ with $\langle s,w_2\rangle=2$.
+
+Finally, assume that other than $a_0=b_0 s$, $a_i^2>0$ for all $i>0$.  Then the estimate becomes 
+
+\begin{equation}\label{eq: spherical 1,1 case I, d}
+\begin{split}
+\codim\FF(a_0,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+= & b_0^2+b_0\langle s,v\rangle+\sum_{0<i<j}\langle a_i,a_j\rangle\geq b_0^2\geq 1,
+\end{split}
+\end{equation}
+
+with equality only if $\langle s,v\rangle=0$ and $v=s+a_1$.  
+
+
+
+(II) We next assume that $a_i^2 \geq 0$ for all $i$.
+ 
+
+We assume $a_1=b_1 w_1$ and $a_2=b_2 w_2$.
+Then 
+ \begin{equation}\label{eq: spherical 1,1 case II,a}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq &
+-\left\lfloor\frac{b_1}{2}\right\rfloor-\left\lfloor\frac{b_2}{2}\right\rfloor+b_1 b_2 \langle w_1,w_2 \rangle
++\sum_{i \geq 3} \langle a_i,a_1\rangle+\sum_{i\geq 3}\langle a_i,a_2 \rangle\\
+\geq & -\frac{b_1}{2}-\frac{b_2}{2}+b_1 b_2 \langle w_1,w_2 \rangle\geq \frac{b_1(b_2-1)+b_2(b_1-1)}{2}>0,
+\end{split}
+\end{equation}
+unless $v=w_1+w_2$.  But then in fact $$\codim\FF(a_1,a_2)^0\geq-\left\lfloor\frac{1}{2}\right\rfloor-\left\lfloor\frac{1}{2}\right\rfloor+\langle w_1,w_2\rangle\geq 1,$$ with equality only if $\langle w_1,w_2\rangle=1$.  If, say, $b_1=1$ and $b_2\geq 2$, then we have $$\codim\FF(a_1,a_2)^0\geq-\left\lfloor\frac{1}{2}\right\rfloor-\left\lfloor\frac{b_2}{2}\right\rfloor+b_2\langle w_1,w_2\rangle\geq \frac{b_2}{2}\geq 1,$$ with equality only if $b_2=2$ and $\langle w_1,w_2\rangle=1$.  Thus $\codim\FF(a_1,...,a_n)^0$ is always positive in this case, is equal to 1 only if $v=w_1+w_2,2w_1+w_2,w_1+2w_2$ with $\langle w_1,w_2\rangle=1$, and otherwise $\codim\FF(a_1,...,a_n)^0\geq 2$.
+
+
+Now we assume that $a_1=b_1 w_j$ and $a_i^2>0$ for $i \geq 2$.
+In this case, we also see that
+\begin{equation}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq&-\left\lfloor\frac{b_1}{2}\right\rfloor+\sum_{i>1}b_1\langle w_j,a_i\rangle+\sum_{1<i<k}\langle a_i,a_k\rangle\\
+\geq&b_1(\langle v,w_j\rangle-\frac{1}{2})+\sum_{1<i<k}\langle a_i,a_k\rangle\\
+\geq&b_1(\langle v,w_j\rangle-\frac{1}{2})\geq 2,
+\end{split}
+\end{equation}
+unless $\langle v,w_j\rangle=1$ and $b_1=1,2$, in which case $\codim\FF(a_1,...,a_n)^0=1$.  
+
+Finally, if $a_i^2>0$ for all $i$, then $\codim\FF(a_1,...,a_n)^0\geq 2$ by Proposition \ref{Prop:HN filtration all positive classes}.
+\end{proof}
+
+\subsubsection{The case $l(w_1)=1,l(w_2)=2$.}
+\begin{Prop}
+Suppose that $\langle v,s\rangle\geq 0,\langle v,w_2\rangle\geq 3$.  Then $M_{\sigma_0}^s(v)\neq\varnothing$.  If $\WW$ induces a divisorial contraction, then $\langle v,s\rangle=0$.  Otherwise, $\WW$ is a flopping wall or not a wall at all.
+\end{Prop}
+\begin{proof}  Let the Harder-Narasimhan filtration of $E$ with respect to $\sigma_-$ correspond to a decomposition $v=\sum_i a_i$.  We shall estimate the codimension of the sublocus of destabilized objects which is equal to
+ \begin{equation}
+\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle.
+\end{equation}
+
+
+(I) We first assume that one of the $a_i$ satisfies $a_i^2<0$.
+For simpicity, we assume that $a_0=b_0 s$ with $s^2=-2$.
+
+Assume that $a_1$ and $a_2$ are isotropic.
+We may set $a_1=b_1 w_1$ and $a_2=b_2 w_2$.
+Then 
+ \begin{equation}\label{eq: spherical 1,2 case I}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-\left\lfloor\frac{b_1}{2}\right\rfloor-b_2+b_1 b_2 \langle w_1,w_2 \rangle\\
+= & b_0^2+b_0 \langle s,v \rangle-\left\lfloor\frac{b_1}{2}\right\rfloor-b_2+b_1 b_2 \langle w_1,w_2 \rangle\\
+\geq & 1-\frac{b_1}{2}-b_2+b_1 b_2=1+\frac{b_2(b_1-2)+b_1(b_ 2-1)}{2} \geq 1,
+\end{split}
+\end{equation} 
+ and $\codim\FF(a_0,...,a_n)^0=1$ only if $\langle w_1,w_2\rangle=1$ and $v=s+w_1+3w_2$.  Otherwise, $\codim\FF(a_0,...,a_n)^0\geq 2$.
+ 
+
+Now assume that $a_1=b_1 w_j$ and $a_i^2>0$ for $i>1$.  If $j=1$, then 
+ \begin{equation}
+\begin{split}
+ \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+&\geq  -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-\left\lfloor\frac{b_1}{2}\right\rfloor+\sum_{i \geq 2} b_1 \langle w_1,a_i \rangle\\
+\geq & b_0 \langle s,v \rangle+b_0^2
+-\left\lfloor\frac{b_1}{2}\right\rfloor+b_1 \langle w_1,a_2 \rangle 
+\geq  b_0^2+\frac{b_1}{2} \geq \frac{3}{2},
+\end{split}
+\end{equation}
+so $\codim\FF(a_0,a_1,...,a_n)^0\geq 2$ in this case.  If instead $j=2$, then 
+ \begin{equation}
+\begin{split}
+ \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+&\geq  -b_0^2+\sum_{i \geq 1}b_0 \langle s,a_i \rangle
+-b_1+\sum_{i \geq 2} b_1 \langle w_2,a_i \rangle\\
+\geq & b_0 \langle s,v \rangle+b_0^2
+-b_1+b_1 \langle w_2,a_2 \rangle 
+\geq  b_0^2+b_1(\langle w_2,a_2\rangle-1)\geq 1,
+\end{split}
+\end{equation}
+with equality only if $v=s+b_1w_2+a_2$ such that $\langle s,v\rangle=0$ and $\langle w_2,a_2\rangle=1$.  
+
+We can now assume that there are no positive classes in the Harder-Narasimhan factors, i.e. $v=b_0 s+b_1 w_j$.  But $v^2>0$ forces $j=2$, so we may assume this outright.  Then $0 \leq \langle v,s \rangle=-2b_0+b_1 \langle w_2,s \rangle$, so our estimate becomes 
+
+ \begin{equation}\label{eq: spherical 1,2 case I, c}
+\begin{split}
+\codim\FF(a_0,a_1)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -b_0^2-b_1+b_0b_1\langle s,w_2\rangle=-b_0^2+\frac{b_0b_1\langle s,w_2\rangle}{2}+b_1\left(\frac{b_0\langle s,w_2\rangle}{2}-1\right)\\
+= & \frac{b_0}{2}\langle v,s\rangle+b_1\left(\frac{\langle v,w_2\rangle}{2}-1\right)\geq\frac{b_1}{2},
+\end{split}
+\end{equation}
+so $\codim\FF(a_0,a_1)^0\geq 2$ if $b_1\geq 3$.  But even if $b_1=1,2$ it is easy to see that the assumption $\langle v,w_2\rangle\geq 3$ forces $\codim\FF(a_0,a_1)^0\geq 2$.  
+
+Finally, assume that other than $a_0=b_0 s$, $a_i^2>0$ for all $i>0$.  Then the estimate becomes 
+
+\begin{equation}\label{eq: spherical 1,2 case I, d}
+\begin{split}
+\codim\FF(a_0,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+= & b_0^2+b_0\langle s,v\rangle+\sum_{0<i<j}\langle a_i,a_j\rangle\geq b_0^2\geq 1,
+\end{split}
+\end{equation}
+
+with equality only if $\langle s,v\rangle=0$ and $v=s+a_1$.  
+
+
+
+(II) We next assume that $a_i^2 \geq 0$ for all $i$.
+ 
+
+We assume $a_1=b_1 w_1$ and $a_2=b_2 w_2$ and denote by $l$ the number of $i$ such that $a_i^2>0$.
+Then 
+ \begin{equation}\label{eq: spherical 1,2 case II,a}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq &
+-\left\lfloor\frac{b_1}{2}\right\rfloor-b_2+b_1 b_2 \langle w_1,w_2 \rangle
++\sum_{i \geq 3} \langle a_i,a_1\rangle+\sum_{i\geq 3}\langle a_i,a_2 \rangle+l(l-1)\\
+\geq & -\frac{b_1}{2}-b_2+b_1 b_2 \langle w_1,w_2 \rangle+b_1l+b_2l+l(l-1)\\
+\geq & b_1(l-\frac{1}{2})+b_2(l-1)+b_1 b_2\langle w_1,w_2\rangle\geq\frac{b_1}{2}+b_1 b_2\geq \frac{3}{2},
+\end{split}
+\end{equation}
+unless $l=0$.  But then $$-\frac{b_1}{2}-b_2+b_1 b_2\langle w_1,w_2\rangle=\frac{b_1}{2}(\langle v,w_1\rangle-1)+\frac{b_2}{2}(\langle v,w_2\rangle-2)\geq b_1+\frac{b_2}{2}\geq\frac{3}{2},$$ as $\langle v,w_1\rangle\geq\langle v,w_2\rangle\geq 3$, so in either case $\codim\FF(a_1,...,a_n)^0\geq 2$.
+
+
+Now we assume that $a_1=b_1 w_k$ and $a_i^2>0$ for $i \geq 2$.
+If $k=1$, we see that
+\begin{equation}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq&-\left\lfloor\frac{b_1}{2}\right\rfloor+\sum_{i>1}b_1\langle w_1,a_i\rangle+\sum_{1<i<j}\langle a_i,a_j\rangle\\
+\geq&b_1(\langle v,w_1\rangle-\frac{1}{2})+\sum_{1<i<k}\langle a_i,a_j\rangle\\
+\geq&b_1(\langle v,w_1\rangle-\frac{1}{2})\geq \frac{5}{2},
+\end{split}
+\end{equation}
+as $\langle v,w_1\rangle\geq 3$.  If instead $k=2$ then 
+\begin{equation}
+\begin{split}
+\codim\FF(a_1,...,a_n)^0=&\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq&-b_1+\sum_{i>1}b_1\langle w_2,a_i\rangle+\sum_{1<i<j}\langle a_i,a_j\rangle\\
+\geq&b_1(\langle v,w_2\rangle-1)+\sum_{1<i<k}\langle a_i,a_j\rangle\\
+\geq&b_1(\langle v,w_2\rangle-1)\geq 2b_1\geq 2,
+\end{split}
+\end{equation}
+so $\codim \FF(a_1,...,a_n)^0\geq 2$ in either of these cases.
+
+Finally, if $a_i^2>0$ for all $i$, then $\codim\FF(a_1,...,a_n)^0\geq 2$ by Proposition \ref{Prop:HN filtration all positive classes}.
+\end{proof}
+
+
+\subsection{Isotropic walls with an exceptional class}
+
+
+
+Assume that $w^2=-1$.
+We may assume that there is a $\sigma_0$-semi-stable object $E_0$
+with $v(E_0)=w$.
+
+If there is a properly $\sigma_0$-semi-stable object $E$ with $v(E)^2 \leq 0$,
+then there is a decomposition $v(E)=\sum_i n_i a_i$ such that  
+$a_i^2 \geq -1$ and $a_i \ne a_j$ $(i \ne j)$.
+If $a_i^2 \geq 0$ for all $i$, then $\langle a_i,a_j \rangle>0$, which implies
+$v(E)^2>0$. Hence one of $a_i$ is $\pm w$.
+If $E=E_0$, then $w=w+\sum_{j \ne i} n_j a_j$ implies $E_0$ is 
+$\sigma_0$-stable.
+
+
+
+Let $E$ be a $\sigma_0$-semi-stable object such that
+$v(E)^2=0$, $v(E)$ is primitive and
+$\langle v(E),v(E_0) \rangle>0$.
+Then $E$ is $\sigma_0$-stable.
+Indeed if $E$ is properly $\sigma_0$-semi-stable, then
+for the decomposition $v(E)=\sum_j n_j a_j$,
+$\langle v(E),a_j \rangle >0$ if $a_j^2 \geq 0$.
+We may assume that $a_0=w$.
+Since $v(E) \ne w$ and
+$0=v(E)^2=\sum_j \langle v(E),a_j \rangle$,
+$0 > \langle v(E),n_0 a_0 \rangle$, which implies
+$\langle v(E),w \rangle<0$.
+Conversely if there is a $\sigma_0$-stable object $E$ with 
+$v(E)^2=0$, then 
+$\Hom(E_0,E)=\Hom(E,E_0(K_X))=0$ imply
+$\langle w,v(E) \rangle \geq 0$.
+If the equality holds, then 
+$\HH$ is not hyperboloc.
+Hence $\langle w, v(E) \rangle>0$.
+
+Let $L^+$ be the half pane of $\HH$ such  that
+$v \in L^+$ if and only if $Z(v) \in \R_{\leq 0}$. 
+Then the effective cone belongs to $L^+$.
+Hence
+\begin{Lem}
+The effective cone is $\R_{\geq 0} u_1+\R_{\geq 0} w$ with 
+$\langle w,u_1 \rangle>0$
+and $P^+=\R_{\geq 0} u_1+\R_{\geq 0}u_2$,
+where $u_2=u_1+2\langle u_1,w \rangle w$. 
+\end{Lem}
+
+\begin{proof}
+Let $\pm u_1,\pm u_2$ be primitive
+and isotropic Mukai vectors.
+We may assume that $w,u_1,u_2 \in L^+$.
+Replacing $u_1$ by $u_2$ if necessary, we may assume that
+$u_1$ is one of the boundary of the effective cone.
+Since $u_1$ is indecomposable in the effective cone,
+there is a $\sigma_0$-stable object $E_1$ with
+$v(E_1)=u_1$. Then $\langle u_1,w \rangle>0$, which implies
+$u_1+2\langle u_1,w \rangle w$ is effective.
+Hence $u_2=u_1+2\langle u_1,w \rangle w$.
+Therefore the first claim holds.
+
+The second claim is obvious.
+\end{proof}
+
+We have 
+\begin{equation}
+\phi_{\sigma_\pm}(u_1) < \phi_{\sigma_\pm}(u_2)<
+\phi_{\sigma_\pm}(w)
+\end{equation}
+or
+\begin{equation}
+\phi_{\sigma_\pm}(u_1) > \phi_{\sigma_\pm}(u_2)>
+\phi_{\sigma_\pm}(w).
+\end{equation}
+
+\begin{Lem}
+Assume that $w^2=-1$, then
+$\langle u_1,u_2 \rangle=2\langle u_1,w \rangle^2$.
+\end{Lem}
+
+
+
+
+
+
+\subsubsection{Estimate for the case where $\ell(u_1)=1$. }  
+
+Assume that $\ell(u_1)=1$.
+
+Assuming $\langle v,v(E_0) \rangle \geq 0$
+for any spherical object  $E_0$ and also any exceptional object 
+$E_0$,
+we shall estimate 
+ \begin{equation}\label{eq:iso:codim}
+\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle.
+\end{equation}
+
+(I)
+We first assume that one of $a_i$ satisfies $a_i^2<0$.
+Since \eqref{eq:iso:codim} is symmetric
+with respect to $a_i$,
+we may assume that $a_1=b_1 w$ with $w^2=-1$
+(see also Remark \ref{Rem:order}).
+Then $\ell(u_2)=\ell(u_1)=1$.
+We also have$\langle v,w \rangle \geq 0$.
+
+Assume that $a_2$ and $a_3$ are isotropic.
+We may set $a_2=b_2 u_1$ and $a_3=b_3 u_2$.
+Then 
+ \begin{equation}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -\frac{b_1^2}{2}+\sum_{i \geq 2}b_1 \langle w,a_i \rangle
+-[\tfrac{b_2}{2}]-[\tfrac{b_3}{2}]+b_2 b_3 \langle u_1,u_2 \rangle\\
+\geq & b_1 \langle w,v \rangle+\frac{b_1^2}{2}
+-[\tfrac{b_2}{2}]-[\tfrac{b_3}{2}]+b_2 b_3 \langle u_1,u_2 \rangle\\
+\geq & \frac{b_1^2}{2}+\frac{b_2(2b_3-1)+b_3(2b_2-1)}{2} \geq \frac{3}{2}.
+\end{split}
+\end{equation}
+
+
+Assume that $a_2=b_2 u_1$ and $a_i^2>0$ for $i>2$. 
+ \begin{equation}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -\frac{b_1^2}{2}+\sum_{i \geq 2}b_1 \langle w,a_i \rangle
+-[\tfrac{b_2}{2}]+\sum_{i \geq 3} b_2 \langle u_1,a_i \rangle\\
+\geq & b_1 \langle w,v \rangle+\frac{b_1^2}{2}
+-[\tfrac{b_2}{2}]+b_2 \langle u_1,a_3 \rangle \\
+\geq & \frac{b_1^2}{2} -[\tfrac{b_2}{2}]+b_2 \geq \frac{3}{2}.
+\end{split}
+\end{equation}
+
+Assume that 
+$v=b_1 w+b_2 u_1$.
+Then $0 \leq \langle v,w \rangle=-b_1+b_2 \langle u_1,w \rangle$.
+
+ \begin{equation}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -[\tfrac{b_1^2}{2}]-[\tfrac{b_2}{2}]+b_1 b_2 \langle w,u_1 \rangle\\
+\geq & \frac{b_1^2}{2} -[\tfrac{b_1^2}{2}]+
+\frac{b_1}{2}\langle v,w \rangle+\frac{b_2}{2}
+(\langle v,u_1 \rangle-1).
+\end{split}
+\end{equation}
+Assume that $\langle v,u_1 \rangle \geq 2$.
+If $\langle u_1,w \rangle \geq 2$, 
+then we see that
+$\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+
+\sum_{i<j}\langle a_i,a_j \rangle \geq 2$.
+If $\langle u_1,w \rangle =1$, then
+$b_1 \geq 2$.
+Then we see that
+$\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+
+\sum_{i<j}\langle a_i,a_j \rangle \geq 2$
+unless $v=2(w+u_1)$.
+
+If $\langle v,u_1 \rangle =1$, that is,
+$v=w+u_1,w+2u_1$,  then
+$b_1=\langle w,u_1 \rangle=1$.
+If $b_2 \geq 3$, then
+$\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+
+\sum_{i<j}\langle a_i,a_j \rangle \geq 2$.
+If $b_2=1,2$, then
+$\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+
+\sum_{i<j}\langle a_i,a_j \rangle =1$.
+
+\begin{Rem}
+Assume that $\langle w,u_1 \rangle=1$.
+In this case, $\MM_{\sigma_0}(u_1)$
+consists of stable objects.
+If $v=w+u_1$, then $\langle v^2 \rangle=1$.
+If $v=w+2 u_1$, then $\langle v^2 \rangle=3$ and
+the codimension 1 locus is contractible.
+\end{Rem}
+
+
+Assume that $a_1=b_1 w$ and $a_i^2>0$ for $i>1$.
+Then
+ \begin{equation}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq & -[\tfrac{b_1^2}{2}]+\sum_{i \geq 2}b_1 \langle w,a_i \rangle 
++\sum_{1<i<j}\langle a_i,a_j \rangle\\
+\geq & b_1 \langle w,v \rangle+[\tfrac{b_1^2+1}{2}] 
++\sum_{1<i<j}\langle a_i,a_j \rangle\geq 2,
+\end{split}
+\end{equation}
+unless $v=a_1+a_2$, 
+$b_1$ and $\langle w,v \rangle=0$.
+If $v=w+a_2$ with $\langle w,v \rangle=0$,
+then $a_2^2=(v-w)^2=v^2-1>0$. Thus $v^2>1$.
+Conversely under these conditions,
+we have a codimension 1 locus in $\MM_{\sigma_+}(v)$
+parameterizing
+\begin{equation}
+0 \to E_1 \to E \to E_2 \to 0
+\end{equation}
+where we assume that $\phi_{\sigma_-}(w)<\phi_{\sigma_-}(v)$ and
+$E_2 \in \{E_0,E_0(K_X)\}$.
+This divisor is not contracted.
+If $v^2 \geq 3$, then
+the codimension 2 locus
+in 
+$\MM_{\sigma_+}(v)$
+parameterizing $E$ fitting in an exact sequence 
+\begin{equation}
+0 \to E_1 \to E \to E_0 \oplus E_0(K_X) \to 0
+\end{equation}
+is contacted and a general fiber is $\P^1 \times \P^1$.
+
+
+
+\begin{Rem}\label{Rem:order}
+If $\phi_{\sigma_-}(w)<\phi_{\sigma_-}(u_2)<\phi_{\sigma_-}(v)
+<\phi_{\sigma_-}(u_1)$, then $a_n \in \Z_{>0}w$, $a_{n-1} \in \Z_{>0}u_2$
+and $a_1 \in \Z_{>0} u_1$.
+\end{Rem}
+
+(II) We next assume that $a_i^2 \geq 0$ for all $i$.
+ 
+
+We assume $a_1=b_1 u_1$ and $a_2=b_2 u_2$.
+Then 
+ \begin{equation}
+\begin{split}
+& \sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+\geq &
+-[\tfrac{b_1}{2}]-[\tfrac{b_2}{2}]+b_1 b_2 \langle u_1,u_2 \rangle
++\sum_{i \geq 3} \langle a_i,a_1+a_2 \rangle\\
+\geq & 
+-[\tfrac{b_1}{2}]-[\tfrac{b_2}{2}]+b_1 b_2 \langle u_1,u_2 \rangle\\
+\geq & \frac{b_1(b_2-1)+b_2(b_1-1)}{2}.
+\end{split}
+\end{equation}
+If one of $b_i$ is 1, then 
+$-[\tfrac{b_1}{2}]-[\tfrac{b_2}{2}]+b_1 b_2 \langle u_1,u_2 \rangle>0$.
+Assume that 
+$\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+
+\sum_{i<j}\langle a_i,a_j \rangle=1$.
+Then $v=a_1+a_2$.
+If $b_1,b_2 \geq 2$, then
+$\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+
+\sum_{i<j}\langle a_i,a_j \rangle \geq 2$
+unless $v=2(u_1+u_2)$.
+If $\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+
+\sum_{i<j}\langle a_i,a_j \rangle=1$,
+then $v=2 u_1+u_2, u_1+u_2$ with $\langle u_1,u_2 \rangle=1$.
+
+
+We assume that $a_1=b_1 u_1$ and $a_i^2>0$ for $i \geq 2$.
+In this case, we also see that
+$\sum_i (a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle>1$
+unless $s=2$, 
+$\langle v,u_1 \rangle=1$ and $b_1=1,2$, i.e.,
+ $v=u_1+a_2,2u_1+a_2$ with $\langle v,u_1 \rangle=1$.
+
+
+
+\begin{Prop}\label{Prop:non-empty}
+\begin{enumerate}
+\item[(1)]
+Let $v \in P^+$ be a Mukai vector.
+Assume that $v^2 \geq 0$ and $\langle v,w \rangle \geq 0$.
+If $v$ is primitive or $v^2>0$, then
+$\MM_{\sigma_0}(v)^s \ne \emptyset$.
+\item[(2)]
+If $v^2 \geq -1$ and $\langle v,u_1 \rangle=1$, then
+we also have $\MM_{\sigma_0}(v)^s \ne \emptyset$.
+If $v^2 \geq 0$ and $\langle v,w \rangle=0$, then
+we also have $\MM_{\sigma_0}(v)^s \ne \emptyset$. 
+\end{enumerate}
+\end{Prop}
+
+\begin{proof}
+(1)
+We note that $\MM_{\sigma_0}(v)^s=
+\MM_{\sigma_+}(v)^s \cap \MM_{\sigma_-}(v)^s$.
+If $v^2>0$ or $v$ is primitive, 
+then $\MM_{\sigma_\pm}(v)^s$ are open dense substacks
+of $\MM_{\sigma_\pm}(v)$. Hence the claim holds.
+
+(2)
+In this case, $\HH=\Z w+\Z u_1$ and $u_2=u_1+2n w$, where
+$n=\langle u_1,w \rangle$.
+We set $v=x u_1+y w$, $(x,y \in \Z)$.
+Then $\langle v,u_1 \rangle=1$ implies
+$n=y=1$. Since $v^2=-1+2x$,
+$x \geq 0$. Therefore $v=w$ or $v=x u_1+w$, $(x \geq 1)$.
+For the second case,
+since $\langle v,w \rangle=x-1$,
+(1) implies
+ $\MM_{\sigma_0}(v)^s \ne \emptyset$.
+If $\langle v,w \rangle=0$, then $\langle v-w,w \rangle=1$ and
+$(v-w)^2=v^2-1 \geq -1$. 
+Moreover $(v-w)^2=-1$ implies $v-w =\pm w$. 
+Therefore $(v-w)^2 \geq 0$. 
+Hence (1) implies the claim.
+\end{proof}
+
+\begin{Cor}
+Assume that $\langle v,u_1 \rangle=1$.
+If $(v-k u_1)^2 \geq -1$ $(k>0)$, then
+$\MM_{\sigma_0}(v-k u_1)^s \ne \emptyset$.
+\end{Cor}
+
+\begin{proof}
+The claim follows from $\langle v-k u_1,u_1 \rangle=1$.
+\end{proof}
+
+
+\begin{Prop}
+Assume that $\langle v,w \rangle \geq 0$.
+Then $\dim(\MM_{\sigma_-}(v) \setminus \MM_{\sigma_0}(v)^s) \geq 1$
+and the equality holds if and only if 
+$\langle v,u_1 \rangle=1$ and $v^2 \geq 1$ or
+$\langle v,w \rangle=0$ and $v^2 \geq 0$.
+Moreover if $\langle v,u_1 \rangle=1$ and $v^2 \geq 3$, then
+$D:=\MM_{\sigma_-}(v) \setminus \MM_{\sigma_0}(v)^s$
+can be contracted.
+\end{Prop}
+
+\begin{proof}
+If $\langle v,u_2 \rangle=1$, then
+$\langle v,u_1 \rangle+2\langle w,u_1 \rangle \langle v,w \rangle=1$.
+Since $\langle v,u_1 \rangle > 0$ and $\langle v,w \rangle \geq 0$,
+$\langle v,u_1 \rangle=1$ and $\langle v,w \rangle=0$.
+
+Assume that $v^2 \geq 3$. Then $(v-2u_1)^2 \geq -1$.
+We set $D:=\MM_{\sigma_-}(v) \setminus \MM_{\sigma_0}(v)^s$.
+Then a general member $E \in D$ fits in an exact sequence
+\begin{equation}
+0 \to E_1 \to E \to E_2 \to 0
+\end{equation}
+where $E_1 \in \MM_{\sigma_0}(v-2u_1)^s$ and 
+$E_2 \in \MM_{\sigma_0}(2u_1)^s$.
+Assume that $\langle v,w \rangle=0$ and $v^2 \geq 1$.
+We set $D:=\MM_{\sigma_-}(v) \setminus \MM_{\sigma_0}(v)^s$.
+Then a general member $E \in D$ fits in an exact sequence
+\begin{equation}
+0 \to E_1 \to E \to E_2 \to 0
+\end{equation}
+where $E_1 \in \{ E_0, E_0(K_X) \}$ and 
+$E_2 \in \MM_{\sigma_0}(v-w)^s$.
+\end{proof}
+
+\begin{Rem}
+If $\langle v,w \rangle=0$ and $\langle v,u_1 \rangle=1$, then
+$v=w+u_1$ with $\langle w,u_1 \rangle=1$. In particular $v^2=1$.
+\end{Rem}
+
+
+
+
+
+If there is no $(-1)$ vector in $\HH$ and $\ell(u_1)=\ell(u_2)=1$, then
+a similar claim also holds.
+
+\begin{Prop}
+Assume that $\langle v,w \rangle \geq 0$.
+Then $\dim(\MM_{\sigma_-}(v) \setminus \MM_{\sigma_0}(v)^s) \geq 1$
+and the equality holds if and only if 
+$\langle v,u_1 \rangle=1$ and $v^2 \geq 1$.
+Moreover if $\langle v,u_1 \rangle=1$ and $v^2 \geq 3$, then
+$D:=\MM_{\sigma_-}(v) \setminus \MM_{\sigma_0}(v)^s$
+can be contracted.
+\end{Prop}
+
+
+\subsubsection{The case where $\ell(u_1)=2$}
+Assume that $\ell(u_1)=2$, and hence
+ $\ell(u_2)=2$.
+\begin{Lem}\label{Lem:FM:rank}
+Let $v$ be a Mukai vector such that $v^2$ is odd.
+Then  
+$\langle v, u_1 \rangle$ is odd.
+\end{Lem}
+
+\begin{proof}
+Since $\ell(u_1)=2$, there is an isometry $\Phi$ of the Mukai lattice 
+such that $\Phi(u_1)=(0,0,1)$.
+Since $\Phi(v)^2=v^2$ is odd, $\rk \Phi(v)$ is odd.
+Hence $\langle v,u_1 \rangle=\langle \Phi(v),\Phi(u_1) \rangle=-\rk \Phi(v)$
+is odd. 
+\end{proof}
+
+
+
+\begin{Prop}
+Assume that there is $w \in \HH$ with $w^2=-1$.
+If $\langle v,w \rangle \geq 0$,
+then $\MM_{\sigma_\pm}(v) \setminus \MM_{\sigma_0}(v)^s$
+is at least of codimension 2 unless
+$\langle v, u_1 \rangle=1,2$. 
+\end{Prop}
+
+\begin{proof}
+Since $\ell(u_1)=\ell(u_2)=2$,
+by using a Fourier-Mukai transform,
+we may assume that $u_1=(0,0,1)$, 
+$\MM_{\sigma_-}(v)$ is the moduli of Gieseker semi-stable
+sheaves and $\MM_{\sigma_+}(v)$ parametrizes the dual
+of Gieseker semi-stable sheaves.
+In this case, $\MM_{\sigma_0}(v)^s$ consists of $\mu$-stable locally free sheaves.
+Then it is easy to see that the claim holds (see \cite[Thm. 2.1 Case B]{Yos16a}). 
+We shall explain a similar argument as in the previous subsection. 
+
+(I) Assume that $a_i^2<0$ for some $i$.
+We may assume $a_1=b_1 w$.
+(I-1)
+Assume that $\#\{i \mid a_i^2=0 \}=2$.
+Then we may set $a_2:=b_2 u_1, a_3:=b_3 u_2$.
+We note that $\langle u_1,u_2 \rangle \geq 2$.
+\begin{equation}
+\begin{split}
+& \sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+ \geq & -[\tfrac{b_1^2}{2}]+\sum_{i \geq 2} b_1 \langle w,a_i \rangle
+-b_2-b_3+b_2 b_3 \langle u_1,u_2 \rangle\\
+\geq &  b_1 \langle w,v \rangle+[\tfrac{b_1^2+1}{2}] 
+-b_2-b_3+b_2 b_3 \langle u_1,u_2 \rangle\\
+\geq & b_2(b_3-1)+b_3(b_2-1)+[\tfrac{b_1^2+1}{2}]+b_1 \langle w,v \rangle
+\geq [\tfrac{b_1^2+1}{2}].
+\end{split}
+\end{equation}
+If $(b_2,b_3) \ne (1,1)$, then 
+$b_2(b_3-1)+b_3(b_2-1) \geq 1$, and hence 
+$\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+\geq 2$.
+Assume that $b_2=b_3=1$. 
+If 
+$\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle=1$,
+then 
+$n=3$,
+$b_1=1$ and $\langle w,v \rangle=0$.
+Then $\langle w,v \rangle=-b_1+\langle u_1+u_2,w \rangle=-1$,
+which is a contradiction.
+
+(I-2)
+Assume that $\#\{i \mid a_i^2=0 \}=1$ and $n \geq 3$.
+We may sssume that $a_2=b_2 u_p$ $(p \in \{1,2\})$ and $a_i^2>0$ 
+for $i \geq 3$.
+Then
+\begin{equation}
+\begin{split}
+& \sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle\\
+ \geq & -[\tfrac{b_1^2}{2}]+\sum_{i \geq 2} b_1 \langle w,a_i \rangle
+-b_2+b_2 \sum_{i \geq 3}\langle u_p,a_i \rangle\\
+\geq &  b_1 \langle w,v \rangle+[\tfrac{b_1^2+1}{2}] 
+-b_2+b_2 \sum_{i \geq 3} \langle u_p,a_i \rangle\\
+\geq & b_2(\langle u_p,v-w \rangle-1)
++[\tfrac{b_1^2+1}{2}]+b_1 \langle w,v \rangle
+\geq [\tfrac{b_1^2+1}{2}].
+\end{split}
+\end{equation}
+
+If $\langle w,u_p \rangle<0$, then
+$\langle u_p,v-w \rangle=\langle u_p,v \rangle-\langle u_p,w \rangle
+\geq \langle u_p,v \rangle+1 \geq 2$.
+Hence
+$\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle 
+\geq 2$.
+Assume that $\langle w,u_p \rangle >0$.
+%Then $\MM_{\sigma_0}(u_p)$ consists of $\sigma_0$-stable
+%objects and defines a Fourier-Mukai transform.
+Then $\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+\geq 2$ unless $\langle v,w \rangle=0$,
+$b_1=1$, 
+$\langle u_p,a_3 \rangle=1$ and $n=3$.
+For the remaining case, $a_3=w+m u_p$ and
+$M_{\sigma_-}(a_3)$ is isomorphic to the Hilbert scheme of points.
+Then $v=2w+m u_1$, which implies 
+$0=\langle v,w \rangle=-2+m \langle u_p,w \rangle$.
+By Lemma \ref{Lem:FM:rank}, $\langle u_p,w \rangle$ is odd, and hence
+$m=2$ and $\langle u_p,w \rangle=1$.
+Hence $v=2(w+u_p)$ with $\langle u_p,w \rangle=1$.
+In particular, $v^2=4$.
+
+(I-3)
+Assume that $\#\{i \mid a_i^2=0 \}=1$ and $n =2$.
+We may sssume that $v=b_1 w+b_2 u_p$ $(p \in \{1,2\})$.
+Then $0 \leq \langle v,w \rangle=-b_1+b_2 \langle u_p,w \rangle$
+implies $\langle u_p,w \rangle \geq 1$. 
+Hence $\MM_{\sigma_0}(u_p)$ consists of $\sigma_0$-stable
+objects.
+\begin{equation}
+\begin{split}
+&\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle \\
+=&-[\tfrac{b_1^2}{2}]-b_2+b_1 b_2 \langle w,u_p \rangle\\
+\geq & b_2(b_1 \langle w,u_p \rangle/2-1).
+\end{split}
+\end{equation}
+If $b_1 \geq 3$, then $b_2 \langle u_p, w \rangle \geq 3$.
+$b_2(b_1 \langle w,u_p \rangle/2-1) \geq 3/2$.
+Hence 
+$\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+\geq 2$.
+
+Assume that $b_1=2$.
+If $\langle w,u_p \rangle \geq 3$, then
+obviously
+ $\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+\geq 2$.
+If $\langle w,u_p \rangle <3$, Lemma \ref{Lem:FM:rank} implies
+$\langle w,u_p \rangle=1$.
+then
+$b_2 \geq b_1 \geq 2$.
+Hence 
+ $\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+=b_2-2 \geq 2$ if $b_2 \geq 4$.
+If $b_2=2,3$, then
+$v=2(w+u_p), 2w+3 u_p$.
+In particular, $v^2=4,8$ and $\langle v,u_p \rangle=2$.
+ 
+If $b_1=1$, 
+$\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+\geq 2$ unless $\langle w,u_p \rangle=1$.
+
+
+
+
+
+
+
+
+
+
+(II)
+Assume that $a_i^2 \geq 0$ for all $i$.
+(II-1)
+Assume that $a_1=b_1 u_1, a_2=b_2 u_2$ and
+$\ell(u_1)=2$.
+Then $\langle u_1,u_2 \rangle>0$ is even.
+ 
+$\sum_i(a_i^2-\dim \MM_{\sigma_-}(a_i))+\sum_{i<j}\langle a_i,a_j \rangle
+\geq -b_1-b_2+b_1 b_2 \langle u_1,u_2 \rangle+
+\sum_{i \geq 3}\langle a_i,a_1+a_2 \rangle$.
+If $\langle u_1,u_2 \rangle \geq 4$, then
+$-b_1-b_2+b_1 b_2 \langle u_1,u_2 \rangle \geq 2$.
+Assume that $\langle u_1,u_2 \rangle =2$.
+Then $-b_1-b_2+2b_1 b_2 =
+b_1(b_2-1)+b_2(b_1-1) \geq 0$.
+If $n \geq 3$, then $\langle a_i,a_1+a_2 \rangle \geq 2$.
+Hence we may assume that $n=2$.
+Then $-b_1-b_2+2b_1 b_2 \geq 2$ unless
+$(b_1,b_2)=(1,1),(1,2),(2,1)$.
+For these cases, $v=u_1+u_2, 2u_1+u_2,u_1+2u_2$.
+Assume that $\langle w,u_1 \rangle>0$. Then
+$\langle u_1,w \rangle=1$ and $u_2=u_1+2w$.
+Hence $v=2(w+u_1),2w+3u_1$ and 
+$v \ne u_1+2u_2$.
+
+(II-2)
+Assume that $a_1=b_1 u_1$ and $a_i^2>0$ for $i \geq 2$.
+If $n \geq3$, then 
+$-b_1+\sum_{i \geq 2} \langle b_1 u_1,a_i \rangle +\langle a_2,a_3 \rangle
+\geq 2$.
+Assume that $n=2$. 
+If $\langle u_1,a_2 \rangle \geq 3$, then
+we also have $-b_1+\langle b_1 u_1,a_2 \rangle \geq 3$.
+If $\langle u_1,a_2 \rangle=1,2$, then
+we have a divisorial contraction.
+
+\end{proof}
+
+
+
+
+\subsubsection{The case where $\langle v,w \rangle \leq 0$}
+
+Assume that $\phi_{\sigma_-}(w)<\phi_{\sigma_-}(v)$, and hence
+$\phi_{\sigma_+}(w)>\phi_{\sigma_+}(v)$.
+We set 
+$\TT_1:=\langle E_0,E_0(K_X) \rangle$ and
+$\FF_1$ is the full subcategory of 
+$\PP(1)$ generated by $\sigma_0$-stable objects $E$
+with $\phi_{\sigma_+}(E)<\phi_{\sigma_+}(E_0)$.
+We also set
+$\TT_1^*$ is the full subcategory of 
+$\PP(1)$ generated by $\sigma_0$-stable objects $E$
+with $\phi_{\sigma_-}(E)>\phi_{\sigma_-}(E_0)$
+and
+$\FF_1^*:=\langle E_0,E_0(K_X) \rangle$.
+We set $\AA_0=\PP(1)$,
+$\AA_1=\langle \TT_1[-1],\FF_1 \rangle$ and
+$\AA_1^*:=\langle \TT_1^*,\FF_1^*[1] \rangle$.
+ Let $\Phi:{\bf D}(X) \to {\bf D}(X)$ be the equivalence
+defined by $E_0$.
+Then we have an equivalence
+\begin{equation}
+\begin{split}
+\Phi:& \AA_0 \to \AA_1\\
+\Phi^{-1}:&\AA_0 \to \AA_1^*.
+\end{split}
+\end{equation}
+The proof is similar to that for the non-isotropic case.
+
+Assume that $n:=-2\langle v,w \rangle>0$.
+Then we have isomorphisms
+\begin{equation}\label{eq:iso:Phi}
+\begin{matrix}
+\Phi:& \MM_{\sigma_-}(v)& \to& \MM_{\sigma_+}(v-nw),\\
+\Phi:& \MM_{\sigma_-}(v-nw)& \to& \MM_{\sigma_+}(v).\\
+\end{matrix}
+\end{equation}
+
+
+
+By Proposition \ref{Prop:non-empty},
+$\MM_{\sigma_0}(v-nw)^s$ is an open dense substack
+of $\MM_{\sigma_\pm}(v-nw)$.
+Hence we have a birational map
+$ \MM_{\sigma_+}(v-nw) \cdots \to \MM_{\sigma_-}(v-nw)$.
+Combibing \eqref{eq:iso:Phi}, we get a birational map
+$$
+\Phi \circ \Phi:\MM_{\sigma_-}(v) \cdots \to \MM_{\sigma_+}(v).
+$$
+
+
+
+We set
+\begin{equation}
+W:=\{E \in \MM_{\sigma_-}(v) 
+\mid \text{ $\Phi(E)$ is not $\sigma_0$-stable } \}.
+\end{equation}
+
+Then $\codim W \geq 2$ unless $v-nw=a+u_1,a+2u_1$ with 
+$\langle a,u_1 \rangle=1$ and $a^2 \geq -1$.
+
+For $E \in \MM_{\sigma_-}(v) \setminus W$,
+$$
+\Hom(E_0,\Phi(E))=\Hom(E_0,\Phi(E)(K_X))=
+\Hom(\Phi(E),E_0)=\Hom(\Phi(E),E_0(K_X))=0.
+$$
+Hence 
+we have an exact sequence
+\begin{equation}
+0 \to \Hom(E_0,E) \otimes E_0 \oplus
+\Hom(E_0(K_X),E) \otimes E_0(K_X) \to
+E \to \Phi(E) \to 0
+\end{equation}
+ and
+\begin{equation}
+0 \to \Phi(E) \to \Phi \circ \Phi(E) \to \Ext^1(E_0,E) \otimes E_0 \oplus
+\Ext^1(E_0(K_X),E) \otimes E_0(K_X)  \to 0.
+\end{equation}
+in $\AA_{\sigma_0}$.
+
+
+We have an isomorphism
+$\Phi: \MM_{\sigma_-}(v) \setminus W \to 
+\MM_{\sigma_0}(v-n w)^s$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{}
+
+Assume that $w^2=-2$ and $c_1(w)=D+(\rk w/2)K_X \mod 2$
+for a nodal cycle $D$.
+Then there is a $\sigma_0$-semi-stable object
+$E_0$ with $v(E_0)=\pm w$.
+In this case, we also see that $E_0$ is $\sigma_0$-stable.
+ Let $E$ be a $\sigma_0$-semi-stable object such that
+$v(E)^2=0$, $v(E)$ is primitive and
+$\langle v(E),v(E_0) \rangle>0$.
+Then $E$ is $\sigma_0$-stable.
+
+
+\section{Non-isotropic case}
+Assume that $\HH$ contains at least two $(-1)$-vectors.
+Let $w_1$ be a $(-1)$-vector. Then $\HH=\Z w_1+\Z w_2$
+such that $\langle w_1,w_2 \rangle=0$ and $D:=w_2^2>0$.
+We assume that there is a $\sigma_0$-stable object $S$ such that $v(S)=w_1$
+and $\phi(S)=1$.
+%Let $T$ be a $\sigma_0$-stable object with $\phi(T)=1$.
+%If $S \ne T$, then $\langle v(S),v(E) \rangle \geq 0$. %Thus 
+%$v(T)=x w_1+y w_2$, $x \leq 0$.
+Let $L^+$ be the half pane of $\HH$ such  that
+$v \in L^+$ if and only if $Z(v) \in \R_{\leq 0}$. 
+For $v$ with $v^2 \geq 0$, there is a $\sigma_0$-semi-stable
+object $E$ with $v(E)=\pm v$. Hence $Z(E) \ne 0$.
+Let $P^+$ be the positive cone, that is, $P^+$ is the connected component
+of $\{ v \mid v^2>0 \}$ contained in $L^+$.
+We may assume that $P^+=\{xw_1+yw_2 \mid y^2 D-x^2>0, y \geq 0 \}$.
+Assume that $D$ is irrational. 
+Then
+there is a $(-1)$-vector $w=x w_1+yw_2 \in L^+$.
+Then
+there is a $\sigma_0$-semi-stable object $E$ with $v(E)=v$.
+
+We set $L^+ = \{x w_1+y w_2 \mid y \geq-\lambda x \}$.
+
+
+
+
+
+Let $(p_1,q_1)$ be the fundamental solution of the Pell equation
+$x^2-Dy^2=1$ with $p_1<0$ and $q_1>0$.
+We shall prove that $\lambda<|q_1/p_1|$.
+
+
+Assume that there is a $(-1)$-vector $w=x w_1+yw_2 \in L^+$
+with $x>0$ and $y<0$.
+Then
+there is a $\sigma_0$-semi-stable object $E$ with $v(E)=v$.
+If $E$ is not $\sigma_0$-stable, then
+there is a $\sigma_0$-stable object $E'$ such that $v(E')=x' w_1+y' w_2 \in L^+$
+and  $|y/x| \leq |y'/x'|$.
+Since $v(E') \not \in P^+$, $v(E')^2=-1$.
+Then we have $0 \leq \langle v(S),v(E') \rangle =-x'$,
+which is a contradiction.
+Therefore $\lambda<|q_1/p_1|$. Let $T$ be a $\sigma_0$-semi-stable
+object with $v(T)=p_1 w_1+q_1 w_2$.
+Then $T$ is $\sigma_0$-stable.
+ 
+If $\phi^+(S)>\phi^+(T)$, then we replace
+$w_1,w_2$ by $p_1 w_1+q_1 w_2, -(q_1 D w_1+p_1 w_2)$.
+Then $w_1=p_0(p_1 w_1+q_1 w_2)+q_1( -(q_1 D w_1+p_1 w_2))$.
+$-(q_1 D w_1+p_1 w_2) \in P^+$.
+Hence we may assume that $\phi^+(S)<\phi^+(T)$.
+
+We define $p_n, q_n \in\Z$ by
+\begin{equation}
+p_n+q_n \sqrt{D}=
+\begin{cases}
+-(-p_1-q_1 \sqrt{D})^n, & n > 0\\
+(-p_1-q_1 \sqrt{D})^n, & n \leq 0
+\end{cases}
+\end{equation}
+We set $u_n:=p_n w_1+q_n w_2$.
+Then $\{ u_n \mid n \in \Z\}$ is the set of effective $(-1)$-vectors.
+We set
+\begin{equation}
+\CC_n:=\{x w_1+y w_2 \mid \frac{q_{n+1}}{p_{n+1}}y<x<\frac{q_n}{p_n}y, y>0 \}.
+\end{equation}
+Then $\{\CC_n \mid n \in \Z \}$ is the chamber decomposition
+of $P^+$ by $(-1)$-vectors and 
+$\CC_0=\{ v \in P^+ \mid \langle v, u_n \rangle>0, n \in \Z \}$.
+%If $v \in \CC_n$ $(n >0)$, then
+%there is $v_0 \in \CC_0$ such that 
+%$v=R_{u_n} \circ R_{u_{n-1}} \circ \cdots \circ R_{u_1}(v_0)$.
+For $v_0 \in \CC_0$, 
+we set 
+\begin{equation}
+v_n:= 
+\begin{cases}
+R_{u_n} \circ R_{u_{n-1}} \circ \cdots \circ R_{u_1}(v_0), & n>0\\
+R_{u_{n+1}}^{-1} \circ R_{u_{n+2}}^{-1} \circ \cdots \circ R_{u_0}^{-1}(v_0), & n \leq 0.
+\end{cases}
+\end{equation}
+Then for $v \in \CC_n$, there is $v_0 \in \CC_0$ such that
+$v_n=v_0$.
+
+
+\subsection{Relations of $\AA_i$}
+
+
+
+Let $T_i^{\pm}$ be $\sigma^{\pm}$-stable object with
+$v(T_i^{\pm})=u_i$.
+Then 
+\begin{equation}
+\phi^+(T_1^+) > \phi^+(T_2^+)>\cdots>\phi^+(E)>
+\cdots >\phi^+(T_{-1}>\phi^+(T_0^+)
+\end{equation}
+for any $\sigma^+$-stable object $E$ with
+$v(E)^2 \geq 0$.
+
+
+\begin{Def}
+Let $R_{T_i^\pm}:{\bf D}(X) \to {\bf D}(X)$ be an equivalence such that
+\begin{equation}
+R_{T_i^\pm}(E):=\mathrm{cone}({\bf R}\Hom(T_i^\pm,E)\otimes T_i^\pm  \oplus 
+{\bf R}\Hom(T_i^\pm (K_X),E) \otimes T_i^\pm (K_X) \to E).
+\end{equation}
+\end{Def}
+
+
+\begin{Def}
+Assume that $i  \geq 0$.
+\begin{enumerate}
+\item[(1)]
+Let $(\TT_i,\FF_i)$ be a torsion pair of $\PP(1)$ such that
+\begin{enumerate}
+\item
+$\TT_i=\langle T_1^+,T_1^+(K_X),T_2^+,T_2^+ (K_X),...,T_i^+,T_i^+ (K_X) \rangle$ 
+is the subcategory of $\PP(1)$ generated by $\sigma^+$-stable objects
+$F$ with $\phi^+(F)>\phi^+(T_{i+1}^+)$ and
+\item
+$\FF_i$ is the subcategory of $\PP(1)$ generated by $\sigma^+$-stable objects $F$
+with $\phi^+(F) \leq \phi^+(T_{i+1}^+)$.
+\end{enumerate}
+Let $\AA_i:=\langle \TT_i[-1],\FF_i \rangle$ be the tilting.
+\item[(2)]
+Let $(\TT_i^*,\FF_i^*)$ be a torsion pair of $\PP(1)$ such that
+\begin{enumerate}
+\item
+$\TT_i^*$ is the subcategory of $\PP(1)$ generated by $\sigma^-$-stable objects $F$
+with $\phi^-(F) \geq \phi^-(T_{i+1}^-)$.
+\item
+$\FF_i^*=\langle T_1^-,T_1^-(K_X),T_2^-,T_2^-(K_X),...,T_i^-,T_i^-(K_X) \rangle$ 
+is the subcategory of $\PP(1)$ generated by $\sigma^-$-stable objects
+$F$ with $\phi^-(F)<\phi^-(T_{i+1}^-)$.
+\end{enumerate}
+Let $\AA_i^*:=\langle \TT_i^*,\FF_i^*[1] \rangle$ be the tilting.
+\end{enumerate}
+\end{Def}
+
+
+
+
+
+
+
+
+
+
+
+\begin{Prop}\label{Prop:equiv1}
+$R_{T_{i+1}^+}$ induces an equivalence
+$\AA_i \to \AA_{i+1}$.
+\end{Prop}
+
+\begin{proof}
+For $E \in \PP(1)$, 
+$\Ext^p(T_{i+1}^+,E)=\Ext^p(T_{i+1}^+(K_X),E)=0$ for $p \ne 0,1,2$.
+Hence we have an exact sequence
+\begin{equation}
+\begin{CD}
+0 @>>> \Phi^{-1}(E) @>>> \Hom(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus  
+\Hom(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+ (K_X) @>{\varphi}>> E \\
+ @>>> \Phi^0(E) @>>> \Ext^1(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus  
+\Ext^1(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+ (K_X) @>>> 0
+\end{CD}
+\end{equation}
+and also an isomorphism
+\begin{equation}
+\Phi^1(E) \cong \Ext^2(T_{i+1}^+,E) \otimes T_{i+1}^+\oplus  
+\Ext^2(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+ (K_X) \in \TT_{i+1}.
+\end{equation}
+
+Assume that $E \in \FF_i$. Then
+$\phi_{\max}^+(E)=\phi^+(T_{i+1}^+)$. Hence 
+$\varphi$ is injective and $\coker \varphi \in \FF_i$. 
+Then we have $\Phi^0(E) \in \FF_i$.
+Since 
+\begin{equation}
+\begin{split}
+\Hom(T_{i+1}^+,\Phi(E))& =\Hom(\Phi(T_{i+1}^+(K_X))[1],\Phi(E))
+=\Hom(T_{i+1}^+(K_X),E[-1])=0,\\
+\Hom(T_{i+1}^+(K_X),\Phi(E))&=\Hom(\Phi(T_{i+1}^+)[1],\Phi(E))
+=\Hom(T_{i+1}^+,E[-1])=0
+\end{split}
+\end{equation}
+$\Phi^0(E) \in \FF_{i+1}$.
+Therefore $\Phi(E) \in \AA_i$.
+
+For $E \in \TT_i$, 
+$\coker \varphi \in \TT_i \subset \TT_{i+1}$.
+Since $T_{i+1}^+, T_{i+1}^+ (K_X)\in \TT_{i+1}$,
+$\Phi^0(E) \in \TT_{i+1}$.
+By $T_{i+1}^+,T_{i+1}^+(K_X) \in \FF_i$, $\Phi^{-1}(E) \in \FF_i$.
+Since 
+\begin{equation}
+\begin{split}
+\Hom(T_{i+1}^+,\Phi(E)[-1])& =\Hom(\Phi(T_{i+1}^+(K_X)),\Phi(E)[-2])
+=\Hom(T_{i+1}^+(K_X),E[-2])=0,\\
+\Hom(T_{i+1}^+(K_X),\Phi(E)[-1])&=\Hom(\Phi(T_{i+1}^+),\Phi(E)[-2])
+=\Hom(T_{i+1}^+,E[-2])=0,
+\end{split}
+\end{equation}
+$\Phi^{-1}(E) \in \FF_{i+1}$.
+Therefore $\Phi(E[-1]) \in \AA_{i+1}$.
+
+
+
+Let $\Psi$ be the inverse of $\Phi$.
+Then
+\begin{equation}\label{eq:Psi-1}
+\Hom(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus
+\Hom(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+(K_X) \cong \Psi^{-1}(E)
+\end{equation}
+and we have an exact sequence
+\begin{equation}
+\begin{CD}
+0 @>>> \Ext^1(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus
+\Ext^1(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+(K_X) @>>> \Psi^0(E) @>>>E \\
+ @>{\psi}>> \Ext^2(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus
+\Ext^2(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+(K_X) @>>> \Psi^1(E) @>>>0.
+\end{CD}
+\end{equation}
+
+Assume that 
+$E \in \FF_{i+1}$.
+Then $\Psi^{-1}(E)=0$ by \eqref{eq:Psi-1}.
+$\Psi^0(E) \in \FF_i$ and $\Psi^1(E) \in \TT_{i+1}$.
+Since
+\begin{equation}\label{eq:T_{i+1}}
+\begin{split}
+\Hom(\Psi(E),T_{i+1}^+[p])& =\Hom(E,\Phi(T_{i+1}^+)[p])=
+\Hom(E, T_{i+1}^+(K_X)[p-1])=0,\\
+\Hom(\Psi(E),T_{i+1}^+(K_X)[p])& =\Hom(E,\Phi(T_{i+1}^+(K_X))[p])=
+\Hom(E, T_{i+1}^+[p-1])=0
+\end{split}
+\end{equation}
+for $p \leq 0$,
+$\Psi^1(E) \in \TT_i$.
+Therefore $\Psi(E) \in \AA_i$.
+
+
+
+Assume that $E \in \TT_{i+1}$.
+Then $\ker \psi \in \TT_{i+1}$ and
+$\coker \psi \in \TT_{i+1}$.
+Hence $\ker \psi \in \TT_{i+1}$ and
+$\coker \psi$ is generated by $T_{i+1}^+,T_{i+1}^+(K_X)$. 
+Then \eqref{eq:T_{i+1}} implies $\Psi^0(E) \in \TT_i$ and
+$\Psi^1(E)=0$.
+Therefore $\Psi(E)[-1] \in \AA_i$.
+\end{proof}
+
+
+
+
+
+
+\begin{Prop}\label{Prop:equiv2}
+$R_{T_{i+1}^-}^{-1}$ induces an equivalence
+$\AA_i^* \to \AA_{i+1}^*$.
+\end{Prop}
+
+\begin{proof}
+We set $\Phi:=R_{T_{i+1}^-}$ and $\Psi:=R_{T_{i+1}^-}^{-1}$.
+We only show that 
+$\Phi(\AA_{i+1}^*) \subset \AA_i^*$.
+We note that 
+\begin{equation}\label{eq:Phi2}
+\begin{split}
+\Hom(T_{i+1}^-,\Phi(E)[p])& =\Hom(\Phi(T_{i+1}^-(K_X))[1],\Phi(E)[p])
+=\Hom(T_{i+1}^-(K_X),E[p-1])=0,\\
+\Hom(T_{i+1}^-(K_X),\Phi(E)[p])&=\Hom(\Phi(T_{i+1}^-)[1],\Phi(E)[p])
+=\Hom(T_{i+1}^-,E[p-1])=0
+\end{split}
+\end{equation}
+for $E \in \PP(1)$ and $p \leq 0$.
+Assume that $E \in \FF_{i+1}^*$.
+For the morphism
+\begin{equation}
+\varphi:\Hom(T_{i+1}^-,E) \otimes T_{i+1}^- \oplus  
+\Hom(T_{i+1}^-(K_X),E) \otimes T_{i+1}^- (K_X)
+\to E,
+\end{equation}
+we have $\ker\varphi$ and $\im \varphi$ are generated by
+$T_{i+1}^-,T_{i+1}^- (K_X)$.
+By \eqref{eq:Phi2}, $\Phi^{-1}(E)=0$ and $\Phi^0(E) \in \FF_i^*$.
+Since $\Phi^1(E)$ is generated by
+$T_{i+1}^-,T_{i+1}^- (K_X)$,
+$\Phi^1(E) \in \TT_i^*$.
+Therefore $\Phi(E[1]) \in \AA_i^*$.
+
+
+Assume that $E \in \TT_{i+1}^*$.
+Then $\Phi^1(E)=0$.
+Since $\Phi^{-1}(E) \in \FF_{i+1}^*$, \eqref{eq:Phi2} implies
+$\Phi^{-1}(E) \in \FF_i^*$.
+Since $\coker \varphi, T_{i+1}^-, T_{i+1}^- (K_X) \in \TT_i^*$,
+$\Phi^0(E) \in \TT_i^*$.
+Therefore $\Phi(E) \in \AA_i^*$.
+\end{proof}
+
+
+
+\begin{Def}
+Assume that $i \leq 0$.
+\begin{enumerate}
+\item[(1)]
+Let $(\TT_i^*,\FF_i^*)$ be a torsion pair of $\PP(1)$ such that
+\begin{enumerate}
+\item
+$\TT_i^*$ is generated by $\sigma^+$-stable object $E$ with 
+$\phi^+(E) \geq \phi^+(T_i^+)$.
+\item
+$\FF_i^*:=\langle T_0^+,T_0^+ (K_X),...,T_{i+1}^+, T_{i+1}^+ (K_X) \rangle$.
+\end{enumerate}
+Let $\AA_i^*$ be the tilting.
+\item[(2)]
+Let $(\TT_i,\FF_i)$ be a torsion pair of $\PP(1)$ such that
+\begin{enumerate}
+\item
+$\TT_i:=\langle T_0^-,T_0^- (K_X),...,T_{i+1}^-, T_{i+1}^- (K_X) \rangle$.
+\item
+$\FF_i$ is generated by $\sigma^-$-stable object $E$ with 
+$\phi^-(E) \leq \phi^-(T_i^-)$.
+\end{enumerate}
+Let $\AA_i$ be the tilting.
+\end{enumerate}
+\end{Def}
+
+
+Then we also have the following claims.
+\begin{Prop}\label{Prop:equiv3}
+Assume that $i \leq 0$.
+\begin{enumerate}
+\item
+We have an equivalence
+$R_{T_i^+}^{-1}:\AA_i^* \to \AA_{i-1}^*$.
+\item
+We have an equivalence
+$R_{T_i^-}:\AA_i \to \AA_{i-1}$.
+\end{enumerate}
+\end{Prop}
+
+
+
+
+
+
+
+\subsection{Stability}
+
+
+\begin{Def}
+$E \in \AA_i$ is $\AA_i$-semi-stable if
+$\phi^+(F) \leq \phi^+(E)$ for all subobject $F$ of $E$
+in $\AA_i$.
+\end{Def}
+
+\begin{Lem}
+Let $E$ be a semi-stable object of $\AA_i$
+with $v(E)^2 \geq 0$.
+Then $E \in \FF_i$ and $E$ is $\sigma^+$-semi-stable.
+\end{Lem}
+
+\begin{proof}
+For the exact sequence
+\begin{equation}
+0 \to H^0(E) \to E \to H^1(E)[-1] \to 0,
+\end{equation}
+if $H^1(E) \ne 0$, then $\phi^+(H^1(E)[-1])<\phi^+(E)$.
+Hence $E \in \FF_i$.
+Let $F$ be a subobject of $E$ in $\PP(1)$.
+Then there is a subobject $F' \subset E$ such that
+$F \subset F'$, $F'/F \in \TT_i$ and $E/F' \in \FF_i$.
+By the $\AA_i$-semi-stability of $E$, 
+$\phi^+(E) \leq \phi^+(E/F')$.
+Since $\phi^+(F'/F) \geq \phi^+(E/F) \geq \phi^+(E/F')$,
+we get $\phi^+(E) \leq \phi^+(E/F)$.
+Therefore $E$ is $\sigma^+$-semi-stable.
+\end{proof}
+
+
+
+\begin{Lem}
+If $E \in \FF_i$ is $\sigma^+$-semi-stable, then
+$E$ is $\AA_i$-semi-stable.
+\end{Lem}
+
+\begin{proof}
+For an exact sequence
+\begin{equation}
+0 \to E_1 \to E \overset{\varphi}{\to} E_2 \to 0
+\end{equation}
+in $\AA_i$,
+$\phi^+(\im \varphi) \leq \phi^+(E_2)$ by
+$\coker \varphi \in \TT_i$.
+By the $\sigma^+$-semi-stability of $E$,
+$\phi^+(E) \leq \phi^+(\im \varphi)$.
+Hence $\phi^+(E) \leq \phi^+(E_2)$.
+Therefore $E$ is $\AA_i$-semi-stable.
+\end{proof} 
+
+More generally we have the following.
+
+Let $\BB$ be an abelian category with a  
+stability function $Z:\BB \to \H \cup \R_{<0}$. 
+We set $\phi(E):=\arg Z(E)$.
+\begin{Def}
+$E \in \BB$ is $Z$-semi-stable if
+$\phi(F) \leq \phi(E)$ for all subobject $F$ of $E$
+in $\BB$.
+\end{Def}
+
+For a real number $\theta \in (-1,1)$, 
+we set $Z':=e^{\pi \sqrt{-1} \theta} Z$.
+If $\theta \geq 0$, then
+let $(\TT,\FF)$ be a torsion pair of $\BB$
+such that
+\begin{enumerate}
+\item
+$\TT$ is generated by $Z$ stable objects $E \in \BB$ with
+$\phi(E)+\theta>1$. 
+\item
+$\FF$ is generated by $Z$ stable objects $E \in \BB$ with
+$\phi(E)+\theta \leq 1$. 
+\end{enumerate}
+We set $\BB':=\langle \TT[-1],\FF \rangle$.
+
+If $\theta < 0$, then
+let $(\TT,\FF)$ be a torsion pair of $\BB$
+such that
+\begin{enumerate}
+\item
+$\TT$ is generated by $Z$ stable objects $E \in \BB$ with
+$\phi(E)+\theta>0$. 
+\item
+$\FF$ is generated by $Z$ stable objects $E \in \BB$ with
+$\phi(E)+\theta \leq 0$. 
+\end{enumerate}
+We set $\BB'':=\langle \TT,\FF[1] \rangle$.
+
+
+
+\begin{Ex}
+We take an orientation preserving homomorphism 
+$Z:\HH \to \C$ such that $Z(u_1)=-1$ and $\mathrm{Im} Z(u_0) >0$.
+Then $E \in \PP(1)$ is $\sigma^+$-semi-stable if and only if
+$E$ is $Z$-semi-stable.
+In this case, $\AA_i$ is an example of $\BB'$. 
+\end{Ex}
+
+ 
+
+\begin{Prop}\label{Prop:BB}
+Assume that $E\in \BB'$.
+Then $E$ is $Z'$-semi-stable if and only if $E$ is $Z$-semi-stable.
+More precisely if $Z(E) \in Z(\FF)$, then $E \in \FF$ and
+if $Z(E) \in -Z(\TT)$, then $E[1] \in \TT$.
+
+Assume that $E\in \BB''$.
+Then $E$ is $Z'$-semi-stable if and only if $E$ is $Z$-semi-stable.
+More precisely if $Z(E) \in -Z(\FF)$, then $E[-1] \in \FF$ and
+if $Z(E) \in Z(\TT)$, then $E \in \TT$.
+\end{Prop}
+
+For a convenience sake, we give a part of the proof,
+although it may be obvious.
+
+
+\begin{Lem}
+Let $E$ be a semi-stable object of $\BB''$ with $Z(E) \in Z(\TT)$.
+Then $E \in \TT$ and $E$ is $Z$-semi-stable.
+\end{Lem}
+
+\begin{proof}
+For the exact sequence
+\begin{equation}
+0 \to H^{-1}(E)[1] \to E \to H^0(E) \to 0,
+\end{equation}
+if $H^{-1}(E) \ne 0$, then $\phi(H^{-1}(E)[1])>\phi(E)$.
+Hence $E \in \TT$.
+Let $F$ be a sub object of $E$ in $\AA$.
+Then there is a subobject object $F' \subset F$ such that
+$F' \in \TT$ and $F/F' \in \FF$.
+By the $Z'$-semi-stability of $E$, 
+$\phi(E) \leq \phi(E/F')$.
+Since $\phi(F/F') \leq \phi(E/F') \leq \phi(E/F)$,
+we get $\phi(E) \leq \phi(E/F)$.
+Therefore $E$ is $Z$-semi-stable.
+\end{proof}
+
+
+
+\begin{Lem}
+If $E \in \TT$ is $Z$-semi-stable, then
+$E$ is $\BB''$-semi-stable.
+\end{Lem}
+
+\begin{proof}
+For an exact sequence
+\begin{equation}
+0 \to E_1 \overset{\varphi}{\to} E \to E_2 \to 0
+\end{equation}
+in $\BB''$,
+$\phi(\im \varphi) \leq \phi(E)$.
+Since $\ker \varphi \in \FF$,
+$\phi(\im \varphi) \geq \phi(E_1)$.
+Hence $\phi(E) \geq \phi(E_1)$.
+Therefore $E$ is $\BB''$-semi-stable.
+\end{proof} 
+
+
+\subsubsection{Preservation of stability}
+
+\begin{Prop}\label{Prop:isom-pm}
+\begin{enumerate}
+\item[(1)]
+\begin{enumerate}
+\item
+$R_{T_1^+}:\AA_0 \to \AA_1$ induces an isomorphism
+$M_{\sigma^-}(v) \to M_{\sigma^+}(v')$, where  $v'=R_{T_1^+}(v)$.
+\item
+$R_{T_1^-}^{-1}:\AA_0^* \to \AA_1^*$ induces an isomorphism
+$M_{\sigma^+}(v) \to M_{\sigma^-}(v')$, where  $v'=R_{T_1^-}^{-1}(v)$.
+\end{enumerate}
+\item[(2)]
+\begin{enumerate}
+\item
+$R_{T_0^-}:\AA_0 \to \AA_{-1}$ induces an isomorphism
+$M_{\sigma^+}(v) \to M_{\sigma^-}(v')$, where  $v'=R_{T_0^-}(v)$.
+\item
+$R_{T_0^+}^{-1}:\AA_0^* \to \AA_1^*$ induces an isomorphism
+$M_{\sigma^-}(v) \to M_{\sigma^+}(v')$, where  $v'=R_{T_0^+}^{-1}(v)$.
+\end{enumerate}
+\end{enumerate}
+\end{Prop}
+
+\begin{proof}
+Since the orientation of $\HH$ is reversed under the reflection,
+the claims follow from Proposition \ref{Prop:BB} and Propositions \ref{Prop:equiv1},
+\ref{Prop:equiv2}, \ref{Prop:equiv3}.
+\end{proof}
+
+
+\begin{Prop}\label{Prop:isom-2}
+\begin{enumerate}
+\item[(1)]
+Assume that $i>0$.
+\begin{enumerate}
+\item
+$R_{T_{i+1}^+} \circ R_{T_i^+}:\AA_{i-1} \to \AA_{i+1}$
+induces an isomorphism
+$M_{\sigma^+}(v) \to M_{\sigma^+}(v')$, where 
+$v'=R_{T_{i+1}^+} \circ R_{T_i^+}(v)$.
+\item
+$R_{T_{i+1}^-}^{-1} \circ R_{T_i^-}^{-1}:\AA_{i-1}^* \to \AA_{i+1}^*$
+induces an isomorphism
+$M_{\sigma^-}(v) \to M_{\sigma^-}(v')$, where
+$v'=R_{T_{i+1}^-}^{-1} \circ R_{T_i^-}(v)$.
+\end{enumerate}
+\item[(2)]
+Assume that $i \leq 0$.
+\begin{enumerate}
+\item
+$R_{T_{i}^-} \circ R_{T_{i+1}^-}:\AA_{i+1} \to \AA_{i-1}$
+induces an isomorphism
+$M_{\sigma^-}(v) \to M_{\sigma^-}(v')$, where
+$v'=R_{T_{i}^-} \circ R_{T_{i+1}^-}(v)$.
+\item
+$R_{T_{i}^+}^{-1} \circ R_{T_{i+1}^+}^{-1}:\AA_{i+1}^* \to \AA_{i-1}^*$
+induces an isomorphism
+$M_{\sigma^+}(v) \to M_{\sigma^+}(v')$, where
+$v'=R_{T_{i}^+}^{-1} \circ R_{T_{i+1}^+}^{-1}(v)$.
+\end{enumerate}
+\end{enumerate}
+\end{Prop}
+
+\begin{proof}
+%Indeed $R_{T_1^+}$ changes the orientation.
+%Hence $E \in \AA_0$ is $\sigma^-$-semi-stable if and only if
+%$R_{T_1^+}(E)$ is $\AA_1$-semi-stability.
+%Since $\AA_1$-semi-stability is equivalent to
+%$\sigma^+$-semi-stability, we get the first claim.
+(1)
+Since $R_{T_{i+1}^+} \circ R_{T_i^+}$ and $R_{T_{i+1}^-}^{-1} \circ R_{T_i^-}^{-1}$
+preserve the orientation,
+we get the claims by a similar argument as in Proposition \ref{Prop:isom-pm}.  
+The proof of (2) is similar.
+\end{proof}
+
+
+
+
+
+
+\begin{Cor}
+If $\langle v_0,u_1 \rangle=0$,
+then $R_{T_1^+}$ induces an isomorphism
+$M_{\sigma^-}(v_0) \to M_{\sigma^+}(v_0)$. 
+If $\langle v_0,u_0 \rangle=0$,
+then $R_{T_0}$ induces an isomorphism
+$M_{\sigma^+}(v_0) \to M_{\sigma^-}(v_0)$. 
+\end{Cor}
+
+
+\begin{Cor}
+\begin{enumerate}
+\item[(1)]
+Assume that $n$ is even and $v_n \in \CC_n$.
+Then we have a birational map
+\begin{equation}
+M_{\sigma^+}(v_n) \cong M_{\sigma^+}(v_0) \cdots \to M_{\sigma^-}(v_0)
+\cong M_{\sigma^-}(v_n).
+\end{equation}
+\item[(2)]
+Assume that $n$ is odd and $v_n \in \CC_n$.
+Then we have a birational map
+\begin{equation}
+M_{\sigma^+}(v_n) \cong M_{\sigma^+}(v_1) \cong M_{\sigma^-}(v_0) 
+\cdots \to M_{\sigma^+}(v_0) \cong M_{\sigma^+}(v_1)
+\cong M_{\sigma^-}(v_n).
+\end{equation}
+\end{enumerate}
+\end{Cor}
+
+Assume that $\langle v, u_n \rangle=0$.
+If $n>0$ is odd, then 
+$v= R_{u_n} \circ R_{u_{n-1}} \circ \cdots \circ R_{u_1}(v_0)$ and
+$v_1=v_0 \in u_1^\perp$.
+In this case, 
+$(R_{T_n^+}  \circ \cdots \circ  R_{T_{2}^+}) \circ R_{T_1^+}(v_0)
+\circ (R_{T_2^-} \circ \cdots \circ R_{T_n^-})$ induces
+an isomorphism
+\begin{equation}
+M_{\sigma^-}(v_{n}) \cong M_{\sigma^-}(v_1) \cong M_{\sigma^+}(v_1) 
+\cong M_{\sigma^+}(v_{n}).
+\end{equation}
+
+If $n>0$ is even, then 
+$v= R_{u_n} \circ R_{u_{n-1}} \circ \cdots \circ R_{u_1}(v_0)$ and
+$v_0 \in u_0^\perp$.
+In this case, 
+$(R_{T_n^+}  \circ \cdots \circ  R_{T_{1}^+}) \circ R_{T_0^+}(v_0)
+\circ (R_{T_1^-} \circ \cdots \circ R_{T_n^-})$ induces
+an isomorphism
+\begin{equation}
+M_{\sigma^-}(v_{n}) \cong M_{\sigma^-}(v_0) \cong M_{\sigma^+}(v_0) 
+\cong M_{\sigma^+}(v_{n}).
+\end{equation}
+
+ 
+
+\subsection{spherical and exceptional case}
+I will briefly explain that the case where $\HH$ contains 
+exceptional and spherical vectors.
+
+
+
+\begin{Rem}
+Assume that $x^2-D y^2=2$ has an integral solution.
+Then $\sqrt{D}$ is irrational.
+Let $(s_1,t_1)$ be a solution of  $x^2-D y^2=2$
+such that $s_1<0$ and $t_1>0$ is minimal.
+We set $\alpha:=s_1+t_1 \sqrt{D}$.
+Then $N(\alpha)=2$ and $\beta:=-\alpha^2/4=(1-s_1^2)-s_1 t_1 \sqrt{D}$
+is the generator of 
+$\{ \gamma \in \Z[\sqrt{D}] \mid N(\gamma)=1 \}$.
+$\alpha^{2n+1}/2^{2n}=\alpha \beta^n$ satisfies
+$N(\alpha^{2n+1}/2^{2n})=2$.
+For $n \geq 1$,
+we set $s_{2n}+t_{2n} \sqrt{D}:=(-1)^{n+1}\beta^n=-\alpha^{2n}/4^n$
+and $s_{2n-1}+t_{2n-1}\sqrt{D}:=\alpha^{2n-1}/2^{2n-2}$.
+$(s_0,t_0)=(1,0)$,
+$s_{-2n}+t_{-2n} \sqrt{D}=-s_{2n}+t_{2n}\sqrt{D}=(-\beta)^{-n}$,
+$s_{-2n+1}+t_{-2n+1} \sqrt{D}=-s_{2n-1}+t_{2n-1}\sqrt{D}
+=2^{2n} (-\alpha)^{-(2n-1)}$.
+For $n \in \Z$, we set $u_n:=s_n w_1+t_n w_2$.
+Then $u_2=R_{u_1}(u_0), u_{i+1}=-R_{u_i}(u_{i-1})$ for $i\geq 2$.
+$u_{-1}=R_{u_0}(u_1), u_{i-1}=-R_{u_i}(u_{i+1})$ for $i \leq -1$.
+\end{Rem}
+
+We set 
+\begin{equation}
+\Delta:=\{ u \in \HH \mid u^2=-1,-2 \}.
+\end{equation}
+Assume that $\HH$ contains a $(-1)$-vector. 
+Then we have a basis $w_1,w_2$ of $\HH$ such that
+$w_1^2=-1,\langle w_1,w_2 \rangle=0$ and $w_2^2=D>0$. 
+We note that $Z_0^{-1}(0)$ is a line in $\HH$.
+We set $L^+:=Z_0^{-1}(\R_{<0})$.
+Assume that there is a $\sigma_0$-semi-stable object $E$ with 
+$v(E)^2=-2$ and $v(E) \in \HH$.
+Let $v_1$ be a $(-1)$-vector and $v_2$ a $(-2)$-vector
+such that the lines $\R v_1$ and $\R v_2$ are closest to $Z_0^{-1}(0)$.
+Thus there is neither $(-1)$-vector nor $(-2)$-vector $v$ between 
+$\R Z v_i$ and $Z_0^{-1}(0)$ for $i=1,2$.
+Replacing the basis, we may assume that $u_0=w_1 \in L^+$
+and $u_1=s_1 w_1+t_1 w_2\in L^+$ with $s_1<0$ and $t_1>0$.
+Then  there are $\sigma_0$-stable objects $T_0,T_1$ with
+$v(T_0)=u_0$ and $v(T_1)=u_1$.
+We set 
+\begin{equation}
+\begin{split}
+u_{n+1}:=& -R_{u_n}(u_{n-1}),\;(n \geq 2)\\
+u_{n-1}:=& -R_{u_n}(u_{n+1}),\;(n \leq -1)\\
+u_2:=& R_{u_1}(u_0),\;u_{-1}:=R_{u_0}(u_1).
+\end{split}
+\end{equation}
+Then $\Delta \cap L^+=\{ u_n \mid n \in \Z \}$.
+\begin{Rem}
+$(x,y)=(s_1,t_1)$ is a solution of $x^2-D y^2=2$ such that
+$y>0$ is minimal.
+\end{Rem}
+Let $\CC_n \subset L^+$ be the region between 
+$u_n^\perp$ and $u_{n+1}^\perp$. 
+Then $\CC_0$ is the fundamental domain of the Weyl group associated to
+$\Delta$.
+We note that $u_{2n+1} \equiv u_1 \mod 2$ for all $n \in \Z$.
+By our assumption, there is a spherical object $E$ with
+$v(E)=u_{2j+1}$. Hence $c_1(u_{2n+1}) \equiv Z \mod 2$, where
+$Z$ is a nodal cycle.   
+Therefore there are $\sigma^\pm$-stable objects $T_i^\pm$
+with $v(T_i^\pm)=u_i$ for all $i$.
+%Let $T_i^\pm$ be $\sigma^\pm$-stable object with
+%$v(T_i^\pm)=u_i$.
+We note that $T_i^+=T_i^-=T_i$ for $i=0,1$.
+Then 
+\begin{equation}
+\phi^+(T_1^+) > \phi^+(T_2^+)>\cdots>\phi^+(E)>
+\cdots >\phi^+(T_{-1}^+)>\phi^+(T_0^+)
+\end{equation}
+for any $\sigma_+$-stable object $E$ with
+$v(E)^2 \geq 0$
+and
+\begin{equation}
+\phi^-(T_1^-) < \phi^-(T_2^-)<\cdots<\phi^-(E)<
+\cdots <\phi^-(T_{-1}^-)<\phi^-(T_0^-)
+\end{equation}
+for any $\sigma_-$-stable object $E$ with
+$v(E)^2 \geq 0$.
+
+We note that $T_i^\pm (K_X)=T_i^\pm$ if $i$ is odd and
+$T_i^\pm (K_X) \not \cong T_i^\pm$ if $i$ is even.
+
+\begin{Def}
+\begin{enumerate}
+\item[(1)]
+For an exceptional object $E_0$,
+let $R_{E_0}:{\bf D}(X) \to {\bf D}(X)$ be an equivalence such that
+\begin{equation}
+R_{E_0}(E):=
+\mathrm{cone}({\bf R}\Hom(E_0,E)\otimes E_0 \oplus 
+ {\bf R}\Hom(E_0(K_X),E)\otimes E_0(K_X) \to E).
+\end{equation}
+\item[(2)]
+For a spherical object $E_0$,
+let $R_{E_0}:{\bf D}(X) \to {\bf D}(X)$ be an equivalence such that
+\begin{equation}
+R_{E_0}(E):=\mathrm{cone}({\bf R}\Hom(E_0,E)\otimes E_0  \to E).
+\end{equation}
+\end{enumerate}
+\end{Def}
+Then by using these equivalences, we see that
+
+
+\begin{Prop}
+\begin{enumerate}
+\item[(1)]
+Assume that $n$ is even and $v_n \in \CC_n$.
+Then we have a birational map
+\begin{equation}
+M_{\sigma_+}(v_n) \cong M_{\sigma_+}(v_0) \cdots \to M_{\sigma_-}(v_0)
+\cong M_{\sigma_-}(v_n).
+\end{equation}
+\item[(2)]
+Assume that $n$ is odd and $v_n \in \CC_n$.
+Then we have a birational map
+\begin{equation}
+M_{\sigma_+}(v_n) \cong M_{\sigma_+}(v_1) \cong M_{\sigma_-}(v_0) 
+\cdots \to M_{\sigma_+}(v_0) \cong M_{\sigma_+}(v_1)
+\cong M_{\sigma_-}(v_n).
+\end{equation}
+\end{enumerate}
+\end{Prop}
+
+Assume that $\langle v, u_n \rangle=0$.
+If $n>0$ is odd, then 
+$v= R_{u_n} \circ R_{u_{n-1}} \circ \cdots \circ R_{u_1}(v_0)$ and
+$v_1=v_0 \in u_1^\perp$.
+In this case, 
+$(R_{T_n^+}  \circ \cdots \circ  R_{T_{2}^+}) \circ R_{T_1^+}(v_0)
+\circ (R_{T_2^-} \circ \cdots \circ R_{T_n^-})$ induces
+an isomorphism
+\begin{equation}
+M_{\sigma_-}(v_{n}) \cong M_{\sigma_-}(v_1) \cong M_{\sigma_+}(v_1) 
+\cong M_{\sigma_+}(v_{n}).
+\end{equation}
+
+If $n>0$ is even, then 
+$v= R_{u_n} \circ R_{u_{n-1}} \circ \cdots \circ R_{u_1}(v_0)$ and
+$v_0 \in u_0^\perp$.
+In this case, 
+$(R_{T_n^+}  \circ \cdots \circ  R_{T_{1}^+}) \circ R_{T_0^+}(v_0)
+\circ (R_{T_1^-} \circ \cdots \circ R_{T_n^-})$ induces
+an isomorphism
+\begin{equation}
+M_{\sigma_-}(v_{n}) \cong M_{\sigma_-}(v_0) \cong M_{\sigma_+}(v_0) 
+\cong M_{\sigma_+}(v_{n}).
+\end{equation}
+
+
+\subsubsection{An outline of the arguments.}
+
+\begin{Def}
+Assume that $i  \geq 0$.
+\begin{enumerate}
+\item[(1)]
+Let $(\TT_i,\FF_i)$ be a torsion pair of $\PP(1)$ such that
+\begin{enumerate}
+\item
+$\TT_i=\langle T_1^+,T_1^+(K_X),T_2^+,T_2^+ (K_X),...,T_i^+,
+T_i^+ (K_X) \rangle$ 
+is the subcategory of $\PP(1)$ generated by $\sigma_+$-stable objects
+$F$ with $\phi^+(F)>\phi^+(T_{i+1}^+)$ and
+\item
+$\FF_i$ is the subcategory of $\PP(1)$ generated by 
+$\sigma_+$-stable objects $F$
+with $\phi^+(F) \leq \phi^+(T_{i+1}^+)$.
+\end{enumerate}
+Let $\AA_i:=\langle \TT_i[-1],\FF_i \rangle$ be the tilting.
+\item[(2)]
+Let $(\TT_i^*,\FF_i^*)$ be a torsion pair of $\PP(1)$ such that
+\begin{enumerate}
+\item
+$\TT_i^*$ is the subcategory of $\PP(1)$ generated by 
+$\sigma_-$-stable objects $F$
+with $\phi^-(F) \geq \phi^-(T_{i+1}^-)$.
+\item
+$\FF_i^*=\langle T_1^-,T_1^-(K_X),T_2^-,T_2^-(K_X),...,
+T_i^-,T_i^-(K_X) \rangle$ 
+is the subcategory of $\PP(1)$ generated by $\sigma_-$-stable objects
+$F$ with $\phi^-(F)<\phi^-(T_{i+1}^-)$.
+\end{enumerate}
+Let $\AA_i^*:=\langle \TT_i^*,\FF_i^*[1] \rangle$ be the tilting.
+\end{enumerate}
+\end{Def}
+We also define $\AA_i, \AA_i^*$ for $i <0$ in a similar way.
+
+
+%For a $\sigma$-stable object $E_0$ with $v(E_0)^2>0$, we set 
+%$E_i:=R_{T_i^\pm}^{-1}(E_{i-1})$.
+
+
+
+
+
+
+
+
+\begin{Prop}\label{Prop:equiv1-2}
+$R_{T_{i+1}^+}$ induces an equivalence
+$\AA_i \to \AA_{i+1}$.
+\end{Prop}
+
+\begin{proof}
+We set $\Phi:=R_{T_{i+1}^+}$.
+Assume that $i$ is odd.
+For $E \in \PP(1)$, 
+$\Ext^p(T_{i+1}^+,E)=\Ext^p(T_{i+1}^+(K_X),E)=0$ for $p \ne 0,1,2$.
+Hence we have an exact sequence
+\begin{equation}
+\begin{CD}
+0 @>>> H^{-1}(\Phi(E)) @>>> \Hom(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus  
+\Hom(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+ (K_X) @>{\varphi}>> E \\
+ @>>> H^0(\Phi(E)) @>>> \Ext^1(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus  
+\Ext^1(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+ (K_X) @>>> 0
+\end{CD}
+\end{equation}
+and also an isomorphism
+\begin{equation}
+H^1(\Phi(E)) \cong \Ext^2(T_{i+1}^+,E) \otimes T_{i+1}^+\oplus  
+\Ext^2(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+ (K_X) \in \TT_{i+1}.
+\end{equation}
+Since $\Phi(T_i^+ (nK_X))=T_i^+((n+1)K_X)$, we have
+\begin{equation}\label{eq:T_{i+1}:Phi}
+\begin{split}
+\Hom(T_{i+1}^+,\Phi(E)[p])& =\Hom(\Phi(T_{i+1}^+(K_X)),\Phi(E)[p-1])
+=\Hom(T_{i+1}^+(K_X),E[p-1])=0,\\
+\Hom(T_{i+1}^+(K_X),\Phi(E)[p])&=\Hom(\Phi(T_{i+1}^+),\Phi(E)[p-1])
+=\Hom(T_{i+1}^+,E[p-1])=0
+\end{split}
+\end{equation}
+for $p \leq 0$.
+
+Assume that $E \in \FF_i$. Then
+$\phi_{\max}^+(E) \leq \phi^+(T_{i+1}^+)$. Hence 
+$\varphi$ is injective and $\coker \varphi \in \FF_i$. 
+Then we have $H^0(\Phi(E)) \in \FF_i$.
+By \eqref{eq:T_{i+1}:Phi}, we get
+$H^0(\Phi(E)) \in \FF_{i+1}$.
+Therefore $\Phi(E) \in \AA_{i+1}$.
+
+For $E \in \TT_i$, 
+$\coker \varphi \in \TT_i \subset \TT_{i+1}$.
+Since $T_{i+1}^+, T_{i+1}^+ (K_X)\in \TT_{i+1}$,
+$H^0(\Phi(E)) \in \TT_{i+1}$.
+By $T_{i+1}^+,T_{i+1}^+(K_X) \in \FF_i$, $\Phi^{-1}(E) \in \FF_i$.
+By \eqref{eq:T_{i+1}:Phi}, we have
+$H^{-1}(\Phi(E)) \in \FF_{i+1}$.
+Therefore $\Phi(E[-1]) \in \AA_{i+1}$.
+
+
+
+Let $\Psi$ be the inverse of $\Phi$.
+Then
+\begin{equation}\label{eq:Psi-1}
+\Hom(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus
+\Hom(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+(K_X) \cong \Psi^{-1}(E)
+\end{equation}
+and we have an exact sequence
+\begin{equation}
+\begin{CD}
+0 @>>> \Ext^1(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus
+\Ext^1(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+(K_X) @>>> \Psi^0(E) @>>>E \\
+ @>{\psi}>> \Ext^2(T_{i+1}^+,E) \otimes T_{i+1}^+ \oplus
+\Ext^2(T_{i+1}^+(K_X),E) \otimes T_{i+1}^+(K_X) @>>> \Psi^1(E) @>>>0.
+\end{CD}
+\end{equation}
+We also have
+\begin{equation}\label{eq:T_{i+1}}
+\begin{split}
+\Hom(\Psi(E),T_{i+1}^+[p])& =\Hom(E,\Phi(T_{i+1}^+)[p])=
+\Hom(E, T_{i+1}^+(K_X)[p-1])=0,\\
+\Hom(\Psi(E),T_{i+1}^+(K_X)[p])& =\Hom(E,\Phi(T_{i+1}^+(K_X))[p])=
+\Hom(E, T_{i+1}^+[p-1])=0
+\end{split}
+\end{equation}
+for $p \leq 0$.
+
+
+
+Assume that 
+$E \in \FF_{i+1}$.
+Then $H^{-1}(\Psi(E))=0$ by \eqref{eq:Psi-1}.
+$H^0(\Psi(E)) \in \FF_{i}$ and $H^1(\Psi(E)) \in \TT_{i+1}$.
+By \eqref{eq:T_{i+1}}, we get
+$H^1(\Psi(E)) \in \TT_i$.
+Therefore $\Psi(E) \in \AA_i$.
+
+Assume that $E \in \TT_{i+1}$.
+Then $\ker \psi \in \TT_{i+1}$ and
+$\coker \psi \in \TT_{i+1}$.
+Hence $H^0(\Psi(E)) \in \TT_{i+1}$ and
+$\coker \psi$ is generated by $T_{i+1}^+,T_{i+1}^+(K_X)$.
+Then \eqref{eq:T_{i+1}} implies 
+$H^0(\Psi(E)) \in \TT_i$ and
+$H^1(\Psi(E))=0$.
+Therefore $\Psi(E)[-1] \in \AA_i$.
+
+If $i$ is even, then
+replacing 
+${\bf R}\Hom(T_{i+1}^+,E) \otimes T_{i+1}^+
+\oplus {\bf R}\Hom(T_{i+1}^+ (K_X),E) \otimes T_{i+1}^+ (K_X)
+\to E$ by
+${\bf R}\Hom(T_{i+1}^+,E) \otimes T_{i+1}^+
+\to E$, 
+we get the same claim.
+\end{proof}
+
+
+
+
+
+
+\begin{Prop}\label{Prop:equiv2-2}
+$R_{T_{i+1}^-}^{-1}$ induces an equivalence
+$\AA_i^* \to \AA_{i+1}^*$.
+\end{Prop}
+
+\begin{proof}
+We set $\Phi:=R_{T_{i+1}^-}$ and $\Psi:=R_{T_{i+1}^-}^{-1}$.
+We only show that 
+$\Phi(\AA_{i+1}^*) \subset \AA_i^*$.
+We note that 
+\begin{equation}\label{eq:Phi2}
+\begin{split}
+\Hom(T_{i+1}^-,\Phi(E)[p])& =\Hom(\Phi(T_{i+1}^-(K_X))[1],\Phi(E)[p])
+=\Hom(T_{i+1}^-(K_X),E[p-1])=0,\\
+\Hom(T_{i+1}^-(K_X),\Phi(E)[p])&=\Hom(\Phi(T_{i+1}^-)[1],\Phi(E)[p])
+=\Hom(T_{i+1}^-,E[p-1])=0
+\end{split}
+\end{equation}
+for $E \in \PP(1)$ and $p \leq 0$.
+
+Assume that $E \in \FF_{i+1}^*$.
+For the morphism
+\begin{equation}
+\varphi:\Hom(T_{i+1}^-,E) \otimes T_{i+1}^- \oplus  
+\Hom(T_{i+1}^-(K_X),E) \otimes T_{i+1}^- (K_X)
+\to E,
+\end{equation}
+we have $\ker\varphi$ and $\im \varphi$ are generated by
+$T_{i+1}^-,T_{i+1}^- (K_X)$.
+Hence $H^0(\Phi(E)) \in \FF_{i+1}^*$.
+By \eqref{eq:Phi2}, $H^{-1}(\Phi(E))=0$ and 
+$H^0(\Phi(E)) \in \FF_i^*$.
+Since $H^1(\Phi(E))$ is generated by
+$T_{i+1}^-,T_{i+1}^- (K_X)$,
+$H^1(\Phi(E)) \in \TT_i^*$.
+Therefore $\Phi(E[1]) \in \AA_i^*$.
+Assume that $E \in \TT_{i+1}^*$.
+Then $H^1(\Phi(E))=0$.
+Since $H^{-1}(\Phi(E)) \in \FF_{i+1}^*$, \eqref{eq:Phi2} implies
+$H^{-1}(\Phi(E)) \in \FF_i^*$.
+Since $\coker \varphi, T_{i+1}^-, T_{i+1}^- (K_X) \in \TT_i^*$,
+$H^0(\Phi(E)) \in \TT_i^*$.
+Therefore $\Phi(E) \in \AA_i^*$.
+\end{proof}
+
+
+
+
+\section{Comments}
+
+
+
+\begin{enumerate}
+\item
+Comment for Prop. 6.7.
+
+If $w_1$ and $w_2$ are primitive isotropic Mukai vector such that $l(w_1)=l(w_2)=2$
+and $4 \nmid \langle w_1,w_2 \rangle$,
+then $w_1-w_2$ is primitive.
+Indeed we set $w_1-w_2=(2p,2\xi,a)$.
+Then $(w_1-w_2)^2=4 \xi^2-4pa$.
+If $w_1-w_2$ is not primitive, then $p+a$ is an odd integer.
+Hence $p$ is even or $a$ is even, and hence 
+$4 \mid \langle w_1,w_2 \rangle$.
+
+Another proof: By using FM, we may assume that $w_2=(0,0,-1)$.
+We set $w_2=(2p,2\xi,a)$. Then $p+a$ is odd.
+Since $w_1-w_2=(2p,2\xi,a+1)$, if it is primitive, then 
+$p$ is even.
+
+
+
+Anyway, if $\langle w_1,w_2 \rangle=2$, then $(w_1-w_2)/2$ is a $(-1)$-vector,
+which contradicts with the assumption.
+
+If $w_2=(0,0,-1)$, then $w_1+w_2=e^L (2,0,-1)$,
+which is the exceptional case in \cite[Lem. 2.8 (2)]{Yos16b}.
+
+\todo{Response: I agree with most of what you're saying here except that I don't think $w_1-w_2$ can ever be primitive.  Indeed, if $w_i=(2r_i,2\xi_i,\frac{s_i}{2})$, then $l(w_i)=2$ and $w_i$ primitive means $2r_i+s_i\equiv 2\pmod 4$.  So if $w_1-w_2$ were primitive, then as $l(w_1-w_2)=2$ we would have to have $2p+2a\equiv 2\pmod 4$, which is definitely not the case as it's in fact $0\pmod 4$.  
+
+Also, in addition to the misplacement of the case $v=w_1+w_2$ with $\langle w_1,w_2\rangle=l(w_1)=l(w_2)=2$ in this section as opposed to the $(-1)$-vector section, your argument does show that if $l(w_1)=l(w_2)=2$, then $\langle w_1,w_2\rangle$ is even so the second divisorial contraction case cannot happen.}
+
+
+\item
+Lemma 6.12 does not occur, since $\langle v, w_i \rangle=1$ with
+$l(w_i)=2$ implies there is a $(-1)$-vector (Lemma 6.5).
+Indeed if $\rk v$ is even, then $l(w_i)=2$
+implies $\langle v,w_i \rangle$
+is even. If $\rk v$ is odd, then $v^2$ is odd, and hence
+by Lemma 6.5, there is a $(-1)$-vector.
+By the assumption, $s$ is spherical,
+and hence there are infinitely many $(-1)$ (and also $(-2)$-vectors).
+
+In the same way, $\langle a_2,w_i \rangle \ne 1$ in the proof of Prop. 6.14. 
+
+\todo{Response: Here I'm not sure I understand.  There's only a $(-1)$-vector if $v^2$ is odd, but this cannot be the case since your Lemma shows that $w_1$ and $s$ generate $\HH$, so everything has even rank and thus $v^2$ is always even.  Am I missing something here?}
+
+\item
+For the spherical case, it seems that $l(w_1)=l(w_2)$.
+Indeed if $l(w_1)=2$, then $\langle w_1,s \rangle$ is even,
+and hence $w_2=w_1+\langle w_1, s \rangle s \equiv w_1 \mod 2$.
+Thus $l(w_2)=2$.
+
+ 
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{NSF_Research_Proposal}
+
+
 \end{document}
